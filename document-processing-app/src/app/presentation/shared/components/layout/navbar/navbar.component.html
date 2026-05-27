@@ -1,16 +1,24 @@
 <header class="navbar">
   <div class="logo">
-    <span class="icon">🗂️</span> 
+    <span class="material-icons icon">dns</span> 
     <span class="text">Sistema de Trámites</span>
   </div>
   
   <div class="user-section">
     <div class="user-info">
-      <span class="welcome">Bienvenido,</span>
+      <span class="welcome">Bienvenido</span>
       <strong class="username">Nombre Usuario</strong> 
     </div>
-    <button type="button" class="logout-btn">
-      Cerrar Sesión
+    
+    <button type="button" class="logout-btn" (click)="abrirModal()">
+      <span class="material-icons">account_circle</span>
     </button>
+
+    @if (isModalOpen){
+      <div class="logout-dropdown" (click)="$event.target === overlay" #overlay>
+        <span class="material-icons drop-icon">logout</span> 
+        <span class="drop-text">Cerrar Sesión</span>
+      </div>
+    }
   </div>
 </header>

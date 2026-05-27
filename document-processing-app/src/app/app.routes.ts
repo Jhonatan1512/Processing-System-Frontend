@@ -1,6 +1,8 @@
 import { Routes } from '@angular/router';
-import { NavbarComponent } from './presentation/shared/components/layout/navbar/navbar.component';
 import { LoginComponent } from './presentation/features/auth/login/login.component';
+import { MainLayoutComponent } from './presentation/shared/components/layout/main-layout/main-layout.component';
+import { DashboardAdminComponent } from './presentation/features/admin/dashboard-admin/dashboard-admin.component';
+import { OficinasComponent } from './presentation/features/admin/oficinas/oficinas.component';
 
 export const routes: Routes = [
     {
@@ -14,9 +16,10 @@ export const routes: Routes = [
     },
     {
         path: 'admin',
-        component: NavbarComponent,
+        component: MainLayoutComponent,
         children: [
-
+            {path: '', component: DashboardAdminComponent},
+            {path: 'oficinas', component: OficinasComponent}
         ]
     },
     {

@@ -2,122 +2,126 @@
   display: flex;
   width: 100%;
   height: 100vh;
-  max-height: 100vh;   
-  overflow: hidden;    
+  max-height: 100vh;
+  overflow: hidden;
   font-family: system-ui, -apple-system, sans-serif;
   box-sizing: border-box;
+  background-color: #ffffff;
 }
 
-/* --- PANEL IZQUIERDO (Negro profundo y Óvalos matemáticos) --- */
 .left-panel {
   position: relative;
   width: 45%;
-  height: 100%;
-  background-color: #000000; 
+  height: 100vh;
+  max-height: 100vh;
+  background: linear-gradient(135deg, #020617 0%, #000000 100%);
   color: #ffffff;
   display: flex;
   justify-content: center;
   align-items: center;
   padding: 4rem;
   box-sizing: border-box;
-  overflow: hidden; 
+  overflow: hidden;
+  border-radius: 0% 45% 55% 0% / 0% 50% 50% 0%;
+  box-shadow: 10px 0 30px rgba(0, 0, 0, 0.25);
+  z-index: 10;
 }
 
 .welcome-content {
   position: relative;
-  z-index: 20; 
+  z-index: 20;
   max-width: 80%;
-
-  .welcome-title {
-    font-size: 3.5rem;
-    font-weight: 800;
-    margin: 0;
-    letter-spacing: -0.02em;
-  }
-
-  .institution-title {
-    font-size: 1.35rem;
-    font-weight: 600;
-    color: #ffffff;
-    margin: 0.2rem 0 1.5rem 0;
-    opacity: 0.9;
-  }
-
-  .welcome-text {
-    font-size: 0.938rem;
-    line-height: 1.6;
-    color: #cccccc;
-    opacity: 0.8;
-  }
 }
 
-/* Mapeo geométrico de óvalos estilo 3D */
+.welcome-content .welcome-title {
+  font-size: 3.5rem;
+  font-weight: 800;
+  margin: 0;
+  letter-spacing: -0.02em;
+}
+
+.welcome-content .institution-title {
+  font-size: 1.35rem;
+  font-weight: 600;
+  color: #38bdf8;
+  margin: 0.2rem 0 1.5rem 0;
+}
+
+.welcome-content .welcome-text {
+  font-size: 0.938rem;
+  line-height: 1.6;
+  color: #94a3b8;
+}
+
 .oval-shape {
   position: absolute;
   background: radial-gradient(circle at 30% 30%, #002e5a 0%, #000a14 70%, #000000 100%);
-  box-shadow: inset -10px -10px 40px rgba(0, 0, 0, 0.8), 20px 20px 60px rgba(0, 0, 0, 0.5);
+  box-shadow: inset -10px -10px 40px rgba(0, 0, 0, 0.8);
+  filter: blur(20px);
+  opacity: 0.5;
 }
 
 .shape-main {
-  width: 850px;
-  height: 950px;
-  right: 15%;
+  width: 500px;
+  height: 600px;
+  right: -10%;
   top: -10%;
-  border-radius: 44% 56% 38% 62% / 48% 40% 60% 52%; 
+  border-radius: 40% 60% 30% 70%;
   z-index: 5;
 }
 
 .shape-sub-1 {
-  width: 380px;
-  height: 380px;
-  bottom: -80px;
-  left: -80px;
-  border-radius: 50% 50% 42% 58% / 55% 45% 55% 45%;
-  z-index: 10;
-}
-
-.shape-sub-2 {
-  width: 280px;
-  height: 280px;
-  bottom: 8%;
-  right: -50px;
-  border-radius: 47% 53% 50% 50% / 40% 60% 40% 60%;
+  width: 300px;
+  height: 300px;
+  bottom: -50px;
+  left: -50px;
+  border-radius: 50%;
   z-index: 6;
 }
 
-/* --- PANEL DERECHO (Formularios e Inputs Estilizados) --- */
+.shape-sub-2 {
+  width: 200px;
+  height: 200px;
+  bottom: 15%;
+  right: 5%;
+  border-radius: 40% 60%;
+  z-index: 5;
+}
+
 .right-panel {
   width: 55%;
-  height: 100%;
+  height: 100vh;
+  max-height: 100vh;
   background-color: #ffffff;
   display: flex;
   justify-content: center;
   align-items: center;
   padding: 3rem;
   box-sizing: border-box;
+  overflow: hidden;
 }
 
 .form-container {
   width: 100%;
   max-width: 460px;
-  animation: fadeIn 0.3s ease-in-out; 
+  animation: fadeIn 0.25s ease-in-out;
 }
 
 .form-header {
   margin-bottom: 1.75rem;
+}
 
-  .form-title {
-    font-size: 2.5rem;
-    font-weight: 700;
-    color: #000000;
-    margin: 0;
-  }
+.form-header .form-title {
+  font-size: 2.5rem;
+  font-weight: 700;
+  color: #000000;
+  margin: 0;
+}
 
-  .form-subtitle {
-    font-size: 0.875rem;
-    color: #666666;
-    margin: 0.375rem 0 0 0;
-  }
+.form-header .form-subtitle {
+  font-size: 0.875rem;
+  color: #666666;
+  margin: 0.375rem 0 0 0;
 }
 
 .auth-form {
@@ -129,10 +133,10 @@
 .form-row {
   display: flex;
   gap: 0.875rem;
+}
 
-  .form-group {
-    flex: 1;
-  }
+.form-row .form-group {
+  flex: 1;
 }
 
 .form-group {
@@ -154,36 +158,24 @@
   border-radius: 10px;
   padding: 0.75rem 1rem;
   gap: 0.75rem;
+}
 
-  .material-icons {
-    color: #222222;
-    font-size: 1.35rem;
-  }
+.input-group .material-icons {
+  color: #222222;
+  font-size: 1.35rem;
+}
 
-  input {
-    flex: 1;
-    border: none;
-    background: transparent;
-    font-size: 0.938rem;
-    color: #000000;
-    outline: none;
-
-    &::placeholder {
-      color: #9ca3af;
-    }
-  }
-
-  .show-password {
-    font-size: 0.75rem;
-    font-weight: 700;
-    color: #002e5a;
-    cursor: pointer;
-    letter-spacing: 0.05em;
-  }
+.input-group input {
+  flex: 1;
+  border: none;
+  background: transparent;
+  font-size: 0.938rem;
+  color: #000000;
+  outline: none;
 }
 
 .submit-btn {
-  background-color: #003366; 
+  background-color: #003366;
   color: #ffffff;
   border: none;
   border-radius: 10px;
@@ -193,15 +185,19 @@
   cursor: pointer;
   margin-top: 0.5rem;
   transition: background-color 0.2s ease;
+  width: 100%;
+}
 
-  &:hover {
-    background-color: #002244;
-  }
+.submit-btn:hover {
+  background-color: #002244;
+}
 
-  &.registration-btn {
-    background-color: #000000; 
-    &:hover { background-color: #1a1a1a; }
-  }
+.submit-btn.registration-btn {
+  background-color: #000000;
+}
+
+.submit-btn.registration-btn:hover {
+  background-color: #1a1a1a;
 }
 
 .form-footer {
@@ -209,24 +205,23 @@
   margin-top: 1.75rem;
   font-size: 0.875rem;
   color: #555555;
+}
 
-  a {
-    color: #003366;
-    font-weight: 700;
-    text-decoration: none;
+.form-footer a {
+  color: #003366;
+  font-weight: 700;
+  text-decoration: none;
+}
 
-    &:hover {
-      text-decoration: underline;
-    }
-  }
+.form-footer a:hover {
+  text-decoration: underline;
 }
 
 @keyframes fadeIn {
-  from { opacity: 0; transform: translateY(8px); }
+  from { opacity: 0; transform: translateY(5px); }
   to { opacity: 1; transform: translateY(0); }
 }
 
-/* --- RESPONSIVE --- */
 @media (max-width: 992px) {
   .left-panel { display: none; }
   .right-panel { width: 100%; }

@@ -1,0 +1,29 @@
+<aside class="sidebar">
+  <div class="sidebar-profile">
+    <div class="avatar">
+      <span class="material-icons">account_circle</span>
+    </div>
+    <div class="profile-info">
+      <span class="role">Administrador</span>
+      <span class="status">● En línea</span>
+    </div>
+  </div> 
+
+  <nav class="sidebar-menu">
+    <a *ngFor="let item of manuItems"
+        [routerLink]="item.ruta"
+        [routerLinkActiveOptions]="{exact: true}"
+        routerLinkActive="active"
+        class="menu-item"> 
+      <span class="material-icons menu-icon">{{item.icono}}</span>
+      <span class="menu-text">{{item.titulo}}</span>
+    </a> 
+
+    <div class="menu-divider"></div>
+
+    <a routerLink="/panel/configuracion" routerLinkActive="active" class="menu-item">
+      <span class="material-icons menu-icon">settings</span>
+      <span class="menu-text">Configuración</span>
+    </a>
+  </nav>
+</aside>

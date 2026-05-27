@@ -1,61 +1,93 @@
 .navbar {
   height: 60px;
-  background-color: #1e293b; 
+  background: linear-gradient(135deg, #1e293b 0%, #09101f 100%); 
   color: #ffffff;
   display: flex;
   justify-content: space-between;
   align-items: center;
   padding: 0 2rem;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.15);
   font-family: system-ui, -apple-system, sans-serif;
+  position: relative;
+  z-index: 50;
 }
 
 .logo {
   display: flex;
   align-items: center;
   gap: 0.5rem;
-  font-size: 1.25rem;
-  font-weight: 700;
-  letter-spacing: -0.025em;
+  
+  .icon { font-size: 1.5rem; color: #38bdf8; }
+  .text { font-weight: 700; letter-spacing: -0.01em; }
 }
 
 .user-section {
+  position: relative;
   display: flex;
   align-items: center;
-  gap: 1.5rem;
+  gap: 1rem;
 }
 
 .user-info {
   display: flex;
   flex-direction: column;
   text-align: right;
-  font-size: 0.875rem;
 
-  .welcome {
-    color: #94a3b8; 
-  }
-
-  .username {
-    color: #f8fafc;
-  }
+  .welcome { font-size: 0.75rem; color: #94a3b8; }
+  .username { font-size: 0.875rem; color: #ffffff; }
 }
 
 .logout-btn {
-  background-color: #ef4444; 
-  color: #ffffff;
+  background: none;
   border: none;
-  padding: 0.5rem 1rem;
-  font-size: 0.875rem;
-  font-weight: 500;
-  border-radius: 6px;
+  color: #ffffff;
   cursor: pointer;
-  transition: background-color 0.2s ease;
+  padding: 0;
+  display: flex;
+  align-items: center;
 
-  &:hover {
-    background-color: #dc2626;
+  .material-icons {
+    font-size: 2.25rem;
+    transition: color 0.2s ease;
+    
+    &:hover { color: #38bdf8; }
+  }
+}
+
+.logout-dropdown {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  
+  position: absolute;
+  top: calc(100% + 10px); 
+  right: 0;               
+  
+  background-color: #ffffff;
+  color: #0f172a;        
+  padding: 0.75rem 1.25rem;
+  border-radius: 8px;
+  min-width: 160px;
+  box-sizing: border-box;
+  border: 1px solid #e2e8f0;
+  
+  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -4px rgba(0, 0, 0, 0.1);
+  cursor: pointer;
+  z-index: 100;
+  transition: all 0.2s ease;
+
+  .drop-icon {
+    font-size: 1.25rem;
+    color: #ef4444;       
   }
 
-  &:active {
-    transform: scale(0.98);
+  .drop-text {
+    font-size: 0.875rem;
+    font-weight: 600;
+  }
+
+  &:hover {
+    background-color: #f8fafc;
+    transform: translateY(-2px); 
   }
 }
