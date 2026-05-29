@@ -1,32 +1,50 @@
 import { Injectable, inject } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable, tap } from 'rxjs';
+import { AuthRepository } from '../../domain/repositories/auth.repository';
+import { TokenService } from '../../domain/network/token.service';
 
 @Injectable({
   providedIn: 'root'
 })
-export class AuthServiceService {
+export class AuthServiceService implements AuthRepository{
+ 
   private http = inject(HttpClient);
-  private apiUrl = "https://localhost:7088/api/Auth/login";
+  private tokenService = inject(TokenService);
+  private apiUrl = "https://localhost:7088/api/Auth";
 
   iniciarSesion(credenciales: any): Observable<string>{
-    return this.http.post(`${this.apiUrl}`, credenciales, {
-      responseType: 'text'
-    });
+    return this.http.post(`${this.apiUrl}/login`, credenciales, {responseType: 'text'}).pipe(
+      tap(token => this.tokenService.setToken(token))
+    );
   }
 
-  obtenerPaylod(token: string): any{
-    try{
-      const base64Url = token.split('.')[1];
-      const base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');
-      const jsonPayload = decodeURIComponent(atob(base64).split('').map(function(c){
-        return '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2);
-      }).join(''));
+  cerrarSesion(): Observable<any>{
+    return this.http.post(`${this.apiUrl}/logout`, {}, {responseType: 'json'}).pipe(
+      tap(() => {
+        this.tokenService.removeToken();
+      })
+    );
+  }
 
-      return JSON.parse(jsonPayload);
-    } catch (error){
-      console.log('Error decodificando token', error);
-      return {};
-    }
+  obtenerNombreUsuario(): string{
+    const token = this.tokenService.getToken();
+    if(!token) return 'Invitado';
+
+    const payload = this.tokenService.decodeToke(token);
+    return payload?.nombre || 'Usuario';
+  }
+
+  obtenerRolUsuario(): string {
+    const token = this.tokenService.getToken();
+    if(!token) return 'Invitado';
+
+    const payload = this.tokenService.decodeToke(token);
+    if(!payload) return 'Invitado';
+
+    const rol = payload.role || payload['role'] || 
+                payload['http://schemas.microsoft.com/ws/2008/06/identity/claims/role']
+
+    return rol || 'Usuario';
   }
 }

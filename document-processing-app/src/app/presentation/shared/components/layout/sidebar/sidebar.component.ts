@@ -14,24 +14,40 @@ export class SidebarComponent implements OnInit {
   private authService = inject(AuthServiceService);
 
   rolActual: string = '';
-  manuItems: any[] = [];
+  nombreUsuario: string = '';
+  menuItems: any[] = [];
 
   ngOnInit(): void {
     this.definirMenuRole();
+    this.obtenerNombreUsuario();
   }
  
   definirMenuRole(){
     const token = localStorage.getItem('token');
     if(!token) return;
 
-    const payload = this.authService.obtenerPaylod(token);
-    this.rolActual = payload['http://schemas.microsoft.com/ws/2008/06/identity/claims/role'];
+    this.rolActual= this.authService.obtenerRolUsuario();
 
     if(this.rolActual === 'Admin'){
-      this.manuItems = [
+      this.menuItems = [
         {titulo: 'Panel Admin', ruta: '/admin', icono: 'admin_panel_settings'},
         {titulo: 'Oficinas', ruta: '/admin/oficinas', icono: 'group'}
+      ];
+    } else if(this.rolActual === 'Personal'){
+      this.menuItems = [ 
+        {titulo: 'Dashboard', ruta: '/personal', icono: 'dashboard'},
+        {titulo: 'Expedientes Nuevos', ruta: '/personal/expedientes', icono: 'snippet_folder'}
+      ]
+    }else { 
+      this.menuItems = [
+        {titulo: 'Dashboard', ruta: '/ciudadano', icono: 'dashboard'},
+        {titulo: 'Expedientes', ruta: '/ciudadano/acciones-expedientes', icono: 'folder_open'},
       ]
     }
+  }
+
+  obtenerNombreUsuario(){
+    const nombre = this.authService.obtenerNombreUsuario() || 'XX';
+    this.nombreUsuario = nombre;
   }
 }

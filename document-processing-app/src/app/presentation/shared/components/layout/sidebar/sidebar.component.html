@@ -4,13 +4,13 @@
       <span class="material-icons">account_circle</span>
     </div>
     <div class="profile-info">
-      <span class="role">Administrador</span>
+      <span class="role">{{nombreUsuario}}</span>
       <span class="status">● En línea</span>
     </div>
   </div> 
 
   <nav class="sidebar-menu">
-    <a *ngFor="let item of manuItems"
+    <a *ngFor="let item of menuItems"
         [routerLink]="item.ruta"
         [routerLinkActiveOptions]="{exact: true}"
         routerLinkActive="active"
