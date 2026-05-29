@@ -1,0 +1,201 @@
+<div class="form-header">
+  <h3 class="form-title">Registrarse</h3>
+</div>
+
+<form
+  [formGroup]="registerForm"
+  class="auth-form"
+  (ngSubmit)="registrarUsuario()">
+  <div class="form-row">
+    <div class="form-group">
+      <label
+        class="form-label"
+        [class.error-text]="
+          registerForm.get('nombre')?.invalid &&
+          registerForm.get('nombre')?.touched">
+        Nombre * 
+      </label>
+      <div class="input-group">
+        <span class="material-icons">person</span>
+        <input
+          type="text"
+          placeholder="Juan"
+          formControlName="nombre"
+          [class.input-error]="
+            registerForm.get('nombre')?.invalid &&
+            registerForm.get('nombre')?.touched"/>
+      </div>
+    </div>
+    <div class="form-group">
+      <label
+        class="form-label"
+        [class.error-text]="
+          registerForm.get('apellidos')?.invalid &&
+          registerForm.get('apellidos')?.touched">
+        Apellidos *
+      </label>
+      <div class="input-group">
+        <span class="material-icons">person_outline</span>
+        <input
+          type="text"
+          placeholder="Pérez"
+          formControlName="apellidos"
+          [class.input-error]="
+            registerForm.get('apellidos')?.invalid &&
+            registerForm.get('apellidos')?.touched"/>
+      </div>
+    </div>
+  </div>
+
+  <div class="form-row">
+    <div class="form-group">
+      <label
+        class="form-label"
+        [class.error-text]="
+          registerForm.get('dni')?.invalid && registerForm.get('dni')?.touched">
+        DNI *
+      </label>
+      <div class="input-group">
+        <span class="material-icons">badge</span>
+        <input
+          type="text"
+          placeholder="12345678"
+          formControlName="dni"
+          [class.input-error]="
+            registerForm.get('dni')?.invalid && registerForm.get('dni')?.touched"/>
+      </div>
+      <p
+        class="password-help-text"
+        *ngIf="registerForm.get('dni')?.value"
+        [class.is-valid]="registerForm.get('dni')?.valid"
+      >
+        <span class="material-icons helper-icon">
+          {{ registerForm.get("dni")?.valid ? "check_circle" : "info" }}
+        </span>
+        El DNI debe tener 8 caracteres númericos
+      </p>
+    </div>
+    <div class="form-group">
+      <label
+        class="form-label"
+        [class.error-text]="
+          registerForm.get('email')?.invalid &&
+          registerForm.get('email')?.touched">
+        Email *
+      </label>
+      <div class="input-group">
+        <span class="material-icons">mail</span>
+        <input
+          type="email"
+          placeholder="ejemplo@correo.com"
+          formControlName="email"
+          [class.input-error]="
+            registerForm.get('email')?.invalid &&
+            registerForm.get('email')?.touched"/>
+      </div>
+      <p
+        class="password-help-text"
+        *ngIf="registerForm.get('email')?.value"
+        [class.is-valid]="registerForm.get('email')?.valid">
+        <span class="material-icons helper-icon">
+          {{ registerForm.get("email")?.valid ? "check_circle" : "info" }}
+        </span>
+        Formato de correo incorrecto
+      </p>
+    </div>
+  </div>
+
+  <div class="form-group">
+    <label
+      class="form-label"
+      [class.error-text]="
+        registerForm.get('password')?.invalid &&
+        registerForm.get('password')?.touched">
+      Contraseña *</label
+    >
+    <div class="input-group">
+      <span class="material-icons">lock</span>
+      <input
+        type="password"
+        placeholder="***********"
+        formControlName="password"
+        [type]="showPasswordActual ? 'text' : 'password'"
+        [class.input-error]="
+          registerForm.get('password')?.invalid &&
+          registerForm.get('password')?.touched"/>
+      <button
+        type="button"
+        class="show-password"
+        (click)="togglePasswordActual()">
+        <span class="material-icons">
+          {{ showPasswordActual ? "visibility_off" : "visibility" }}
+        </span>
+      </button>
+    </div>
+    <p
+      class="password-help-text"
+      *ngIf="registerForm.get('password')?.value"
+      [class.is-valid]="registerForm.get('password')?.valid">
+      <span class="material-icons helper-icon">
+        {{ registerForm.get("password")?.valid ? "check_circle" : "info" }}
+      </span>
+      Debe tener mínimo 8 caracteres, incluir mayúsculas, minúsculas, números y
+      caracteres especiales.
+    </p>
+  </div>
+
+  <div class="form-group">
+    <label
+      class="form-label"
+      [class.error-text]="
+        registerForm.get('confirmarPassword')?.invalid &&
+        registerForm.get('confirmarPassword')?.touched">
+      Repetir Contraseña *</label
+    >
+    <div class="input-group">
+      <span class="material-icons">lock</span>
+      <input
+        type="password"
+        placeholder="***********"
+        formControlName="confirmarPassword"
+        [type]="showPasswordConfim ? 'text' : 'password'"
+        [class.input-error]="
+          registerForm.get('confirmarPassword')?.invalid &&
+          registerForm.get('confirmarPassword')?.touched"/>
+      <button
+        type="button"
+        class="show-password"
+        (click)="togglePasswordConfim()" >
+        <span class="material-icons">
+          {{ showPasswordConfim ? "visibility_off" : "visibility" }}
+        </span>
+      </button>
+    </div>
+    <span
+      class="error-msg"
+      *ngIf="
+        registerForm.hasError('noCoincide') &&
+        registerForm.get('confirmarPassword')?.dirty ">
+      Las contraseñas no coinciden</span>
+  </div>
+
+  <div
+    [ngClass]="isErrorCreate ? 'api-error' : 'api-success'"
+    *ngIf="mensajeError">
+    <span class="material-icons">{{
+      isErrorCreate ? "error" : "done_all"
+    }}</span>
+    {{ mensajeError }}
+  </div>
+
+  <button
+    type="submit"
+    class="submit-btn registration-btn"
+    [disabled]="registerForm.pending">
+    Registrar Cuenta
+  </button>
+</form>
+
+<div class="form-footer">
+  <p>¿Ya tiene una cuenta? <a href="javascript:void(0)" (click)="emitirIrALogin()">Inicia Sesión</a></p>
+</div>

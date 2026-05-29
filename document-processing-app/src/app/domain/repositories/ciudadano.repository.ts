@@ -3,4 +3,5 @@ import { CiudadanoModel } from "../../data/models/ciudadano-model";
 
 export interface CiudadanoRepository{ 
     registroCiudadanos(data: CiudadanoModel): Observable<any>;
+    obtenerUsuarios(): Observable<any>;
 }

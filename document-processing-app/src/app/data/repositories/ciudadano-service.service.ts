@@ -8,10 +8,14 @@ import { CiudadanoModel } from '../models/ciudadano-model';
   providedIn: 'root'
 })
 export class CiudadanoServiceService implements CiudadanoRepository {
-  private http = inject(HttpClient);
+    private http = inject(HttpClient);
   private apiUrl = "https://localhost:7088/api/Usuarios";
   
   registroCiudadanos(data: CiudadanoModel): Observable<any> {
     return this.http.post(`${this.apiUrl}/registrarse`, data);
+  }
+
+  obtenerUsuarios(): Observable<any> {
+    return this.http.get(`${this.apiUrl}`);
   }
 }
