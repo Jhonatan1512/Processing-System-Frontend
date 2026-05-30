@@ -1,0 +1,65 @@
+<div class="modal-overlay">
+  <div class="modal-container">
+    
+    <div class="modal-header">
+      <div class="header-title-group">
+        <span class="material-icons header-icon">badge</span>
+        <h3>Registrar Nueva Oficina</h3>
+      </div>
+      <button class="close-icon-btn" type="button" (click)="cerrar()">
+        <span class="material-icons">close</span>
+      </button>
+    </div>
+
+    <form class="modal-body-form" [formGroup]="registerForm">
+      
+      <div class="form-group">
+        <label class="form-label" 
+            [class.error-text]="registerForm.get('nombre')?.invalid &&
+            registerForm.get('nombre')?.touched">
+            Nombre de la Oficina <span class="required-asterisk">*</span>
+        </label>
+        <div class="input-group">
+          <span class="material-icons input-icon">corporate_fare</span>
+          <input 
+            type="text" 
+            placeholder="Ej. Subgerencia de Logística" 
+            autocomplete="off"
+            formControlName="nombre"
+            required
+            [class.input-error]="registerForm.get('nombre')?.invalid &&
+            registerForm.get('nombre')?.touched">
+        </div>
+        <span class="help-text">Asigna un nombre claro y oficial para el área.</span>
+      </div>
+
+      <div class="form-group">
+        <div class="label-wrapper">
+          <label class="form-label">Oficina Superior / Dependencia</label>
+          <span class="optional-badge">Opcional</span>
+        </div>
+        <div class="input-group">
+          <span class="material-icons input-icon">account_balance</span>
+          <select formControlName="oficinaPadreId" [(ngModel)]="oficinaSeleccionadaId">
+            <option value="" selected>Seleccionar</option>            
+            <option *ngFor="let oficina of listaOficinas" [value]="oficina.id">{{oficina.nombre}}</option>
+          </select>
+          <span class="material-icons select-arrow">expand_more</span>
+        </div>
+        <span class="help-text">Indica de qué área depende jerárquicamente esta oficina.</span>
+      </div>
+
+    </form>
+
+    <div class="modal-footer">
+      <button class="btn-cancel" type="button" (click)="cerrar()">
+        Cancelar
+      </button>
+      <button class="btn-submit" type="button" (click)="crearficina()">
+        <span class="material-icons">save</span>
+        Guardar Oficina
+      </button>
+    </div>
+
+  </div>
+</div>

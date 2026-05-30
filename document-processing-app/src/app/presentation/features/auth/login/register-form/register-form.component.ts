@@ -2,7 +2,6 @@ import { Component, inject, EventEmitter, Output } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule, ValidationErrors, AbstractControl } from '@angular/forms';
 import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
-import { Router } from "@angular/router";
 import { CiudadanoModel } from '../../../../../data/models/ciudadano-model';
 import { CiudadanoServiceService } from '../../../../../data/repositories/ciudadano-service.service';
 
@@ -15,7 +14,6 @@ import { CiudadanoServiceService } from '../../../../../data/repositories/ciudad
 export class RegisterFormComponent {
 
   private fb = inject(FormBuilder);
-  private router = inject(Router);
   private ciudadanoService = inject(CiudadanoServiceService);
 
   @Output() IrALogin = new EventEmitter<void>();
@@ -52,7 +50,6 @@ export class RegisterFormComponent {
   get campoInvalido(){
     return (campo: string) => this.registerForm.get(campo)?.valid && this.registerForm.get(campo)?.touched;
   }
-
 
   registrarUsuario(){
     if(this.registerForm.invalid){

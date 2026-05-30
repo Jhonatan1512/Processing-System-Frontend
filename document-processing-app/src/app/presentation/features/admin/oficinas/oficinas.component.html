@@ -1,1 +1,122 @@
-<p>oficinas works!</p>
+<div class="table-container">
+  <div class="table-header-actions">
+    <div class="header-text">
+      <h2>Gestión de Oficinas Institucionales</h2>
+    </div>
+    
+    <button class="add-btn" type="button" (click)="abrirModal()">      
+      <span class="material-icons">add</span>      
+      Agregar Oficina
+    </button>
+
+    <app-register-form
+      *ngIf="isModalOpenAgregar"
+      (closeModal)="isModalOpenAgregar = false"
+      (oficinaCreada)="onOficinaCreada()">      
+    </app-register-form>
+
+  </div>
+
+  <table class="custom-table">
+    <thead>
+      <tr>
+        <th>Nombre de la Oficina</th>
+        <th>Oficina Superior / Dependencia</th>
+        <th>Encargado(s)</th>
+        <th class="text-center">Acciones</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let index of listaOficinas">
+        <td>
+          <div class="office-info">
+            <span class="material-icons office-icon">corporate_fare</span>
+            <div>
+              <span class="office-name">{{index.nombre}}</span>
+            </div>
+          </div>
+        </td>
+        <td>
+          <span class="superior-badge none">{{index.oficinaReporte}}</span>
+        </td>
+        <td>
+          <div class="managers-list">
+            <button 
+              class="manager-click-btn" 
+              (click)="abrirModalInformacion(index.trabajadores[0])"
+              [disabled]="index.trabajadores.length === 0">
+              <span class="manager-chip">
+                <span class="material-icons">person</span>
+                {{ index.trabajadores.length > 0 ? index.trabajadores[0].nombreCompleto : 'Sin Responsable' }}
+              </span>
+            </button>             
+          </div>
+        </td>
+        <td class="text-center">
+          <div class="actions-group">
+            <button class="action-btn edit" title="Editar"><span class="material-icons">edit</span></button>
+            <button class="action-btn delete" title="Eliminar"><span class="material-icons">delete</span></button>
+          </div>
+        </td>
+      </tr>        
+    </tbody>
+  </table>
+</div>
+
+<div class="modal-overlay" *ngIf="isModalInformationOpen">
+  <div class="modal-container">
+    
+    <div class="modal-header">
+      <h3>Detalles del Responsable</h3>
+      <button class="close-icon-btn" (click)="isModalInformationOpen = false">
+        <span class="material-icons">close</span>
+      </button>
+    </div>
+
+    <div class="modal-body">
+      
+      <div class="user-profile-summary">
+        <div class="profile-avatar">
+          <span class="material-icons">badge</span>
+        </div>
+        <h4>{{ responsableSeleccionado?.nombreCompleto || 'Nombre del Trabajador' }}</h4>
+        <span class="profile-tag">Encargado de Área</span>
+      </div>
+
+      <div class="info-details-list">
+        
+        <div class="detail-item">
+          <span class="material-icons detail-icon">person</span>
+          <div class="detail-content">
+            <label>Nombre Completo</label>
+            <span>{{ responsableSeleccionado?.nombreCompleto || '---' }}</span>
+          </div>
+        </div>
+
+        <div class="detail-item">
+          <span class="material-icons detail-icon">fingerprint</span>
+          <div class="detail-content">
+            <label>DNI / Documento de Identidad</label>
+            <span class="font-mono">{{ responsableSeleccionado?.dni || '---' }}</span>
+          </div>
+        </div>
+
+        <div class="detail-item">
+          <span class="material-icons detail-icon">mail</span>
+          <div class="detail-content">
+            <label>Correo Electrónico</label>
+            <span class="email-text">{{ responsableSeleccionado?.email || '---' }}</span>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <div class="modal-footer">
+      <button class="btn-close-modal" (click)="isModalInformationOpen = false">
+        Cerrar Ventana
+      </button>
+    </div>
+
+  </div>
+</div>

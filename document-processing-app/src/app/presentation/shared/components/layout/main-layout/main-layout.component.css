@@ -19,7 +19,7 @@
 .layout-workspace {
   flex: 1;
   background-color: #f8fafc; 
-  padding: 1.5rem;
+  padding: 1rem;
   box-sizing: border-box;
   overflow-y: auto; 
 }

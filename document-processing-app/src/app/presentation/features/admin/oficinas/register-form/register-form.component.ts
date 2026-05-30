@@ -1,0 +1,74 @@
+import { Component, Output, EventEmitter, inject, OnInit } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { FormsModule } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
+import { OficinaServiceService } from '../../../../../data/repositories/oficina-service.service';
+import { OficinaModel } from '../../../../../data/models/oficina-model';
+
+@Component({
+  selector: 'app-register-form',
+  imports: [FormsModule, CommonModule, ReactiveFormsModule],
+  templateUrl: './register-form.component.html',
+  styleUrl: './register-form.component.css'
+})
+export class RegisterFormComponent implements OnInit {
+  private oficinaService = inject(OficinaServiceService);
+  private fb = inject(FormBuilder);
+
+  listaOficinas: any[] = [];
+  oficinaSeleccionadaId: string = '';
+
+  @Output() closeModal = new EventEmitter<void>();
+  @Output() oficinaCreada = new EventEmitter<void>();
+
+  registerForm: FormGroup = this.fb.group({
+    nombre: ['', Validators.required],
+    oficinaPadreId: [null]
+  })
+
+  ngOnInit(): void {
+     this.obtenerOficinas(); 
+  }
+
+  cerrar(){
+    this.closeModal.emit();
+  }
+
+  crearficina() {
+    const { nombre, oficinaPadreId } = this.registerForm.value;
+    const nuevaOficina: OficinaModel = {
+      nombre: nombre.trim(),
+      oficinaPadreId: (oficinaPadreId === '' || !oficinaPadreId) ? null : oficinaPadreId
+    }
+
+    this.oficinaService.crearNuevaOficina(nuevaOficina).subscribe({
+      next: () => {
+        this.oficinaCreada.emit();
+        this.cerrar();
+      },
+      error: (err) => {
+        console.log(err);
+        this.cerrar();
+      }
+    });
+  }
+
+  obtenerOficinas(){
+    this.oficinaService.obtenerOficinas().subscribe({
+      next: (data) => {
+        this.listaOficinas = data;
+      },
+      error: () => {
+        console.log("Error");
+      }
+    });
+  }
+
+  limpiarCampos(){
+    this.registerForm.patchValue({
+      nombre: '',
+      oficinaPadreId: null
+    });
+  }
+
+}
