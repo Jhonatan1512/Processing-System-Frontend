@@ -8,7 +8,7 @@ import { OficinaModel } from '../models/oficina-model';
   providedIn: 'root'
 })
 export class OficinaServiceService implements OficinaRepository{
-  
+    
   private http = inject(HttpClient);
   private apiUrl = "https://localhost:7088/api/Oficinas";
 
@@ -18,5 +18,9 @@ export class OficinaServiceService implements OficinaRepository{
 
   crearNuevaOficina(data: OficinaModel): Observable<any> {
     return this.http.post(`${this.apiUrl}`, data);
+  }
+
+  actualizarOficina(id: string, data: OficinaModel): Observable<any> {
+    return this.http.put(`${this.apiUrl}/actualizar/${id}`, data);
   }
 }

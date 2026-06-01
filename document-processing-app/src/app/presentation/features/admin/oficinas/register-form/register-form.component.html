@@ -47,7 +47,7 @@
           <span class="material-icons select-arrow">expand_more</span>
         </div>
         <span class="help-text">Indica de qué área depende jerárquicamente esta oficina.</span>
-      </div>
+      </div> 
 
     </form>
 
@@ -56,8 +56,8 @@
         Cancelar
       </button>
       <button class="btn-submit" type="button" (click)="crearficina()">
-        <span class="material-icons">save</span>
-        Guardar Oficina
+        <span class="material-icons">{{ oficinaEditar ? 'edit_note' : 'save' }}</span>
+        {{ oficinaEditar ? 'Actualizar Cambios' : 'Guardar Oficina' }}
       </button>
     </div>
 

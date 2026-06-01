@@ -1,0 +1,91 @@
+<div class="modal-overlay">
+  <div class="modal-container">
+    <div class="modal-header">
+      <div class="header-title-group">
+        <span class="material-icons header-icon">person_add</span>
+        <h3>Registrar Nuevo Usuario</h3>
+      </div>
+      <button class="close-icon-btn" type="button" title="Cerrar" (click)="cerraModal()">
+        <span class="material-icons">close</span>
+      </button>
+    </div>
+
+    <form class="modal-body-form" [formGroup]="registerForm">
+      <div class="form-row">
+        <div class="form-group">
+          <label class="form-label" [class.error-text]="campoInvalido('nombre')">
+            Nombres<span class="required-asterisk">*</span>
+          </label>
+          <div class="input-group" [class.input-group-error]="campoInvalido('nombre')">
+            <span class="material-icons input-icon">person</span>
+            <input type="text" placeholder="Ej. Jhonatan" formControlName="nombre"/>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label" [class.error-text]="campoInvalido('apellidos')">
+            Apellidos<span class="required-asterisk">*</span>
+          </label>
+          <div class="input-group" [class.input-group-error]="campoInvalido('apellidos')">
+            <span class="material-icons input-icon">badge</span>
+            <input type="text" placeholder="Ej. Cruzado Huamán" formControlName="apellidos"/>
+          </div>
+        </div>
+      </div>
+
+      <div class="form-row">
+        <div class="form-group">
+          <label class="form-label" [class.error-text]="campoInvalido('dni')">
+            DNI<span class="required-asterisk">*</span>
+          </label>
+          <div class="input-group" [class.input-group-error]="campoInvalido('dni')">
+            <span class="material-icons input-icon">fingerprint</span>
+            <input type="text" maxlength="8" placeholder="Ej. 70984512" formControlName="dni"/>
+          </div>
+          
+          <p class="password-help-text" 
+             *ngIf="registerForm.get('dni')?.value" 
+             [class.is-valid]="registerForm.get('dni')?.valid"
+             [class.is-invalid-text]="campoInvalido('dni')">
+            <span class="material-icons helper-icon">
+              {{ registerForm.get("dni")?.valid ? "check_circle" : "info" }}
+            </span>
+            El DNI debe tener 8 caracteres numéricos
+          </p>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <div class="label-wrapper">
+          <label class="form-label" [class.error-text]="campoInvalido('oficinaId')">
+            Oficina / Dependencia Asignada<span class="required-asterisk">*</span>
+          </label>
+        </div>
+        <div class="input-group" [class.input-group-error]="campoInvalido('oficinaId')">
+          <span class="material-icons input-icon">corporate_fare</span>
+          <select formControlName="oficinaId">
+            <option [ngValue]="null" disabled selected>Seleccione la oficina destino...</option>
+            <option *ngFor="let oficina of listaOficinas" [value]="oficina.id">
+              {{ oficina.nombre }}
+            </option>
+          </select>
+          <span class="material-icons select-arrow">expand_more</span>
+        </div>
+        <span class="help-text">Área institucional donde el usuario desempeñará sus funciones.</span>
+      </div>
+      <div [ngClass]="isErrorCreate ? 'api-error' : 'api-success'" *ngIf="mensajeError">
+        <span class="material-icons">{{ isErrorCreate ? "error" : "done_all" }}</span>
+        {{ mensajeError }}
+      </div>
+    </form>
+
+
+    <div class="modal-footer">
+      <button class="btn-cancel" type="button" (click)="cerraModal()">Cancelar</button>
+      <button class="btn-submit" type="button" (click)="UserCreate()">
+        <span class="material-icons">save</span>
+        Guardar Usuario
+      </button>
+    </div>
+  </div>
+</div>

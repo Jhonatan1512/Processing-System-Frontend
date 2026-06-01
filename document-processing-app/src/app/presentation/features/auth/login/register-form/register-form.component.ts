@@ -49,7 +49,7 @@ export class RegisterFormComponent {
 
   get campoInvalido(){
     return (campo: string) => this.registerForm.get(campo)?.valid && this.registerForm.get(campo)?.touched;
-  }
+  } 
 
   registrarUsuario(){
     if(this.registerForm.invalid){
@@ -72,7 +72,6 @@ export class RegisterFormComponent {
 
     this.ciudadanoService.registroCiudadanos(nuevoCiudadano).subscribe({
       next: () => {
-        console.log("Usuario creado");
         this.isErrorCreate = false;
         this.mensajeError = 'Usuario creado correcatmente';
         this.limpiarDatosRegistro();

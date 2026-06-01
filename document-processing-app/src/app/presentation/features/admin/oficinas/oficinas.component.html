@@ -9,12 +9,6 @@
       Agregar Oficina
     </button>
 
-    <app-register-form
-      *ngIf="isModalOpenAgregar"
-      (closeModal)="isModalOpenAgregar = false"
-      (oficinaCreada)="onOficinaCreada()">      
-    </app-register-form>
-
   </div>
 
   <table class="custom-table">
@@ -54,7 +48,9 @@
         </td>
         <td class="text-center">
           <div class="actions-group">
-            <button class="action-btn edit" title="Editar"><span class="material-icons">edit</span></button>
+            <button class="action-btn edit" title="Editar" (click)="abririModalEditar(index)">
+              <span class="material-icons">edit</span>
+            </button>
             <button class="action-btn delete" title="Eliminar"><span class="material-icons">delete</span></button>
           </div>
         </td>
@@ -62,6 +58,15 @@
     </tbody>
   </table>
 </div>
+
+<app-register-form
+  *ngIf="isModalOpenAgregar"
+  [oficinaEditar]="oficinaSeleccionadaParaEditar"
+  (closeModal)="isModalOpenAgregar = false"
+  (oficinaCreada)="onOficinaCreada()">      
+</app-register-form>
+
+<!--Modal Information-->
 
 <div class="modal-overlay" *ngIf="isModalInformationOpen">
   <div class="modal-container">

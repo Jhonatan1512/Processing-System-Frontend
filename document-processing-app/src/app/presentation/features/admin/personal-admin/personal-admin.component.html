@@ -1,0 +1,74 @@
+<div class="table-container">
+  
+  <div class="table-header-actions">
+    <div class="header-text">
+      <h2>Gestión de Personal Institucional</h2>
+    </div>
+    
+    <button class="add-btn" type="button" (click)="abrirModalCrear()">
+      <span class="material-icons">person_add</span>
+      Agregar Usuario
+    </button>
+  </div>
+
+  <div class="table-responsive">
+    <table class="custom-table">
+      <thead>
+        <tr>
+          <th>Usuario / Personal</th>
+          <th>DNI</th>
+          <th>Correo Electrónico</th>
+          <th>Oficina / Dependencia</th>
+          <th class="text-center">Acciones</th>
+        </tr>
+      </thead>
+      <tbody>
+        
+        <tr *ngFor="let usuario of listaUsuarios">
+          <td>
+            <div class="user-info-cell">
+              <div class="user-avatar">
+                <span class="material-icons">account_circle</span>
+              </div>
+              <div class="user-meta">
+                <span class="user-name">{{usuario.nombre}}</span>
+                <span class="user-lastname">{{usuario.apellidos}}</span>
+              </div>
+            </div>
+          </td>
+          <td>
+            <span class="dni-text">{{usuario.dni}}</span>
+          </td>
+          <td>
+            <div class="email-wrapper">
+              <span class="material-icons email-icon">mail_outline</span>
+              <span class="email-text">{{usuario.email}}</span>
+            </div>
+          </td>
+          <td>
+            <span class="office-badge">{{usuario.nombreOficina}}</span>
+          </td>
+          <td class="text-center">
+            <div class="actions-group">
+              <button class="action-btn edit" title="Editar" (click)="abrirModalEditar(usuario)">
+                <span class="material-icons">edit</span>
+              </button>
+              <button class="action-btn delete" title="Eliminar">
+                <span class="material-icons">delete</span>
+              </button>
+            </div>
+          </td>
+        </tr>
+
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<app-register-form
+  *ngIf="isModalOpen"
+  [usuarioEditar]="usuarioSeleccionado" 
+  (closeModal)="isModalOpen=false"
+  (agregarUsuario)="onUserCreate()"
+  (editarUsuario)="onEditUser()">
+</app-register-form>

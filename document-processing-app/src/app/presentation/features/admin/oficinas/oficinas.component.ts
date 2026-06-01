@@ -17,6 +17,8 @@ export class OficinasComponent implements OnInit {
   listaOficinas: any[] = [];
   isModalInformationOpen: boolean = false;
   isModalOpenAgregar: boolean = false;
+  isEditMode: boolean = true;
+  oficinaSeleccionadaParaEditar: any = null;
   
   responsableSeleccionado: any = null;
 
@@ -47,11 +49,17 @@ export class OficinasComponent implements OnInit {
     this.responsableSeleccionado = null;
   }
 
-  abrirModal(){
+  abrirModal(){    
+    this.oficinaSeleccionadaParaEditar = null;
     this.isModalOpenAgregar = true;
   }
 
-  onOficinaCreada(){
+  abririModalEditar(oficina?: any){
+    this.oficinaSeleccionadaParaEditar = oficina;
+    this.isModalOpenAgregar = true;
+  }
+
+  onOficinaCreada(){    
     this.isModalOpenAgregar = false;
     this.obtenerOficinas();
   }

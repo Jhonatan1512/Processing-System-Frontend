@@ -7,7 +7,10 @@ import { DashboardPersonalComponent } from './presentation/features/personal/das
 import { ExpedientesNuevosComponent } from './presentation/features/personal/expedientes-nuevos/expedientes-nuevos.component';
 import { DashboardCiudadanoComponent } from './presentation/features/ciudadano/dashboard-ciudadano/dashboard-ciudadano.component';
 import { ExpedientesCiudadanoComponent } from './presentation/features/ciudadano/expedientes-ciudadano/expedientes-ciudadano.component';
+import { PersonalAdminComponent } from './presentation/features/admin/personal-admin/personal-admin.component';
+
 import { authGuard } from './presentation/shared/guards/auth.guard';
+
 
 export const routes: Routes = [
     {
@@ -25,7 +28,8 @@ export const routes: Routes = [
         component: MainLayoutComponent,
         children: [
             {path: '', component: DashboardAdminComponent},
-            {path: 'oficinas', component: OficinasComponent}
+            {path: 'oficinas', component: OficinasComponent},
+            {path: 'personal', component: PersonalAdminComponent}
         ]
     },
     {
