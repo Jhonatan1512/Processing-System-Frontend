@@ -17,5 +17,5 @@ export class CiudadanoServiceService implements CiudadanoRepository {
 
   obtenerUsuarios(): Observable<any> {
     return this.http.get(`${this.apiUrl}`);
-  }
+  } 
 }

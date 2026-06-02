@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { PersonalSeriveService } from '../../../../data/repositories/personal-serive.service';
 import { RegisterFormComponent } from './register-form/register-form.component';
+import { ToastServiceService } from '../../../../data/repositories/toast-service.service';
 
 @Component({
   selector: 'app-personal-admin',
@@ -12,6 +13,7 @@ import { RegisterFormComponent } from './register-form/register-form.component';
 })
 export class PersonalAdminComponent implements OnInit {
   private personalService = inject(PersonalSeriveService);
+  private toastService = inject(ToastServiceService);
 
   listaUsuarios: any[] = [];
   isModalOpen: boolean = false;
@@ -24,17 +26,43 @@ export class PersonalAdminComponent implements OnInit {
   obtenerPersonal(){
     this.personalService.obtenerPersonal().subscribe({
       next: (data) => {
-        this.listaUsuarios = data;
+        this.listaUsuarios = data.map((usuario: any) => ({
+          ...usuario,
+          estaEliminado: usuario.estaEliminado === 'True' 
+        }));
       }
     });
   }
 
-  onUserCreate(){
-    this.isModalOpen = false;
-    this.obtenerPersonal();
+  eliminarUsuario(usuario: any){
+    const nuevoEstado = !usuario.estaEliminado;
+    const userId = usuario.id;
+
+    const dto = {
+      estaEliminado: nuevoEstado
+    }
+
+    this.toastService.confirm(
+      "Confirmar",
+      `¿Estas seguro que desas ${nuevoEstado ? 'descativar' : 'activar'} al usuario?`
+    )
+    .then((result) => {
+      if(result.isConfirmed){
+        this.personalService.eliminarPersonal(userId, dto).subscribe({
+          next: () => {
+            this.toastService.success(`Usuario ${nuevoEstado ? 'Desactivado' : 'Activado'}`);
+            usuario.estaEliminado = nuevoEstado;
+          },
+          error: () => {
+            this.toastService.error("Error al realizar acción");
+          }
+        });
+      }
+    })
   }
 
-  onEditUser(){
+  onUserCreate(){
+    this.isModalOpen = false;
     this.obtenerPersonal();
   }
 

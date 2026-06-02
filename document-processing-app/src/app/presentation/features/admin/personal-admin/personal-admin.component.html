@@ -19,6 +19,7 @@
           <th>DNI</th>
           <th>Correo Electrónico</th>
           <th>Oficina / Dependencia</th>
+          <th>Estado</th>
           <th class="text-center">Acciones</th>
         </tr>
       </thead>
@@ -48,12 +49,18 @@
           <td>
             <span class="office-badge">{{usuario.nombreOficina}}</span>
           </td>
+          <td>
+            <span class="status-badge" [ngClass]="!usuario.estaEliminado ? 'status-activo' : 'status-inactivo'">
+              <span class="status-dot"></span>                             
+              {{ !usuario.estaEliminado ? 'Activo' : 'Inactivo' }} 
+            </span>
+          </td>
           <td class="text-center">
             <div class="actions-group">
               <button class="action-btn edit" title="Editar" (click)="abrirModalEditar(usuario)">
                 <span class="material-icons">edit</span>
               </button>
-              <button class="action-btn delete" title="Eliminar">
+              <button class="action-btn delete" title="Eliminar" (click)="eliminarUsuario(usuario)">
                 <span class="material-icons">delete</span>
               </button>
             </div>
@@ -69,6 +76,5 @@
   *ngIf="isModalOpen"
   [usuarioEditar]="usuarioSeleccionado" 
   (closeModal)="isModalOpen=false"
-  (agregarUsuario)="onUserCreate()"
-  (editarUsuario)="onEditUser()">
+  (agregarUsuario)="onUserCreate()">
 </app-register-form>

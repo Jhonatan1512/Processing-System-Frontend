@@ -18,7 +18,7 @@ export class RegisterFormComponent implements OnInit {
   private personalService = inject(PersonalSeriveService);
   private oficinaService = inject(OficinaServiceService);
 
-  @Input() usuarioEditar = new EventEmitter<void>();
+  @Input() usuarioEditar : any = null;
 
   @Output() closeModal = new EventEmitter<void>();
   @Output() agregarUsuario = new EventEmitter<void>(); 
@@ -37,9 +37,12 @@ export class RegisterFormComponent implements OnInit {
 
   ngOnInit(): void {
     this.obtenerOficinas();
+    this.obtenerUsuarioEditar();
   }
 
   cerraModal(){
+    this.mensajeError = '';
+    this.isErrorCreate = false;
     this.closeModal.emit();
   }
 
@@ -61,6 +64,17 @@ export class RegisterFormComponent implements OnInit {
      });
   }
 
+  obtenerUsuarioEditar(){
+    if(this.usuarioEditar){
+      this.registerForm.patchValue({
+        nombre: this.usuarioEditar.nombre,
+        apellidos: this.usuarioEditar.apellidos,
+        dni: this.usuarioEditar.dni,
+        oficinaId: this.usuarioEditar.oficinaId
+      });
+    }
+  }
+
   UserCreate(){
     this.mensajeError = '';
     this.isErrorCreate = false;
@@ -74,22 +88,43 @@ export class RegisterFormComponent implements OnInit {
     const {nombre, apellidos, dni, oficinaId} = this.registerForm.value;
     const newUser: PersonalModel = { nombre, apellidos, dni, oficinaId, };
 
-    this.personalService.crearPersonal(newUser).subscribe({
-      next: () => {
-        this.isErrorCreate = false;
-        this.mensajeError = "Usuario creado";
-        this.registerForm.reset();
-        this.agregarUsuario.emit();
-      },
-      error: (err) => { 
-        this.isErrorCreate = true; 
-        console.log(err);
-        if(err.error && typeof err.error === 'object'){
-            this.mensajeError = err.error.message || 'El Dni ya se encuntran registrados';
+    if(this.usuarioEditar){
+      
+      const userId = this.usuarioEditar.id;
+      this.personalService.editarPersonal(userId, newUser).subscribe({
+        next: () => {
+          this.isErrorCreate = false;
+          this.agregarUsuario.emit();
+          this.cerraModal();          
+        },
+        error: (err) => {
+          this.isErrorCreate = true; 
+          console.log(err);
+          if(err.error && typeof err.error === 'object'){
+            this.mensajeError = err.error.message;
           } else if(err.error && typeof err.error === 'string'){
             this.mensajeError = err.error; 
           }
-        }      
-    });
+        }
+      })
+    } else {
+      this.personalService.crearPersonal(newUser).subscribe({
+        next: () => {
+          this.isErrorCreate = false;
+          this.mensajeError = "Usuario creado";
+          this.registerForm.reset();
+          this.agregarUsuario.emit();
+        },
+        error: (err) => { 
+          this.isErrorCreate = true; 
+          console.log(err);
+          if(err.error && typeof err.error === 'object'){
+              this.mensajeError = err.error.message || 'El Dni ya se encuntran registrados';
+            } else if(err.error && typeof err.error === 'string'){
+              this.mensajeError = err.error; 
+            }
+          }      
+      });
+    }
   }
 }

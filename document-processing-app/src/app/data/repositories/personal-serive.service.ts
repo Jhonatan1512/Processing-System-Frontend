@@ -8,7 +8,7 @@ import { PersonalModel } from '../models/personal-model';
   providedIn: 'root'
 })
 export class PersonalSeriveService implements PersonalRepository{
-  
+    
   private http = inject(HttpClient);
   private apiUrl = "https://localhost:7088/api/Personal";
   
@@ -18,10 +18,14 @@ export class PersonalSeriveService implements PersonalRepository{
 
   crearPersonal(data: PersonalModel): Observable<any> {
     return this.http.post(`${this.apiUrl}`, data);
-  }
+  } 
 
   editarPersonal(id: string, data: PersonalModel): Observable<any> {
     return this.http.put(`${this.apiUrl}/actualizar-datos/${id}`, data);
+  }
+
+  eliminarPersonal(id: string, data: any): Observable<any> {
+    return this.http.put(`${this.apiUrl}/eliminar-usuario/${id}`, data);
   }
   
 }

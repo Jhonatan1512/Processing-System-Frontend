@@ -8,6 +8,7 @@ import { ExpedientesNuevosComponent } from './presentation/features/personal/exp
 import { DashboardCiudadanoComponent } from './presentation/features/ciudadano/dashboard-ciudadano/dashboard-ciudadano.component';
 import { ExpedientesCiudadanoComponent } from './presentation/features/ciudadano/expedientes-ciudadano/expedientes-ciudadano.component';
 import { PersonalAdminComponent } from './presentation/features/admin/personal-admin/personal-admin.component';
+import { TipoDocumentoComponent } from './presentation/features/admin/tipo-documento/tipo-documento.component';
 
 import { authGuard } from './presentation/shared/guards/auth.guard';
 
@@ -29,7 +30,8 @@ export const routes: Routes = [
         children: [
             {path: '', component: DashboardAdminComponent},
             {path: 'oficinas', component: OficinasComponent},
-            {path: 'personal', component: PersonalAdminComponent}
+            {path: 'personal', component: PersonalAdminComponent},
+            {path: 'tipo-documento', component: TipoDocumentoComponent}
         ]
     },
     {

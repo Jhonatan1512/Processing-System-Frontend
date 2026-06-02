@@ -40,7 +40,7 @@
         </div>
         <div class="input-group">
           <span class="material-icons input-icon">account_balance</span>
-          <select formControlName="oficinaPadreId" [(ngModel)]="oficinaSeleccionadaId">
+          <select formControlName="oficinaPadreId">
             <option value="" selected>Seleccionar</option>            
             <option *ngFor="let oficina of listaOficinas" [value]="oficina.id">{{oficina.nombre}}</option>
           </select>

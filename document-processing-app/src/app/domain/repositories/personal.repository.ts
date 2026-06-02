@@ -5,4 +5,5 @@ export interface PersonalRepository{
     obtenerPersonal(): Observable<any>;
     crearPersonal(data: PersonalModel): Observable<any>;
     editarPersonal(id: string, data: PersonalModel): Observable<any>;
+    eliminarPersonal(id: string, data: any): Observable<any>;
 }

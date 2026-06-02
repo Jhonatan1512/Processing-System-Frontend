@@ -16,7 +16,6 @@ export class RegisterFormComponent implements OnInit {
   private fb = inject(FormBuilder);
 
   listaOficinas: any[] = [];
-  oficinaSeleccionadaId: string = '';
 
   @Input() oficinaEditar: any = null;
 

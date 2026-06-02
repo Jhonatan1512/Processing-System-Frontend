@@ -36,14 +36,18 @@
         <td>
           <div class="managers-list">
             <button 
+              *ngFor="let usuario of index.trabajadores"
               class="manager-click-btn" 
-              (click)="abrirModalInformacion(index.trabajadores[0])"
-              [disabled]="index.trabajadores.length === 0">
+              (click)="abrirModalInformacion(usuario)"
+              [disabled]="!usuario">
               <span class="manager-chip">
                 <span class="material-icons">person</span>
-                {{ index.trabajadores.length > 0 ? index.trabajadores[0].nombreCompleto : 'Sin Responsable' }}
+                {{ usuario ? usuario.nombreCompleto : 'Sin Responsable' }}
               </span>
-            </button>             
+            </button>    
+            <span class="no-managers-text" *ngIf="index.trabajadores.length === 0">
+              Sin Responsable
+            </span>         
           </div>
         </td>
         <td class="text-center">

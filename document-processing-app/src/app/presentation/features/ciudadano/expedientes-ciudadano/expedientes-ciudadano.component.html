@@ -1,1 +1,101 @@
-<p>expedientes-ciudadano works!</p>
+<div class="citizen-dashboard">
+  
+  <div class="dashboard-header">
+    <div class="header-titles">
+      <h2>Mis Expedientes</h2>
+    </div>
+    
+    <div class="header-actions">
+      <div class="search-bar">
+        <span class="material-icons search-icon">search</span>
+        <input type="text" placeholder="Buscar expediente...">
+      </div>
+      
+      <button class="btn-primary new-btn" type="button">
+        <span class="material-icons">add</span>
+        Nuevo Expediente
+      </button>
+    </div>
+  </div>
+
+  <div class="cards-grid">
+    
+    <div class="modern-card">
+      <div class="card-top">
+        <div class="exp-id">
+          <span class="material-icons icon-folder">folder_open</span>
+          <strong>EXP-2026-0001</strong>
+        </div>
+        <span class="badge badge-warning">En Proceso</span>
+      </div>
+
+      <div class="card-content">
+        <div class="meta-data">
+          <span class="doc-label">Tipo:</span>
+          <span class="doc-value">Oficios</span>
+        </div>
+        <h3 class="asunto-text">Solicitud de renovación de licencia de funcionamiento</h3>
+      </div>
+
+      <div class="files-section">
+        <div class="files-header">
+          <span class="files-title">Archivos Adjuntos (2)</span>
+          <button class="btn-add-mini" (click)="abrirModalArchivo()">
+            <span class="material-icons">add</span> Adjuntar
+          </button>
+        </div>
+        
+        <ul class="files-list">
+          <li class="file-item">
+            <div class="file-info">
+              <span class="material-icons file-icon">picture_as_pdf</span>
+              <span class="file-name">Solicitud_Firmada_v1.pdf</span>
+            </div>
+            <div class="file-actions">
+              <button class="file-btn view" title="Ver archivo"><span class="material-icons">visibility</span></button>
+              <button class="file-btn delete" title="Eliminar archivo"><span class="material-icons">close</span></button>
+            </div>
+          </li>
+        </ul>
+      </div>
+
+    </div>
+    </div>
+</div>
+
+<div class="modal-overlay" *ngIf="isModalArchivoOpen">
+  <div class="modal-container modal-upload">
+    
+    <div class="modal-header">
+      <div class="modal-title-group">
+        <span class="material-icons title-icon" style="color: #3b82f6;">cloud_upload</span>
+        <h3>Adjuntar Documento</h3>
+      </div>
+      <button class="close-icon-btn" (click)="cerrarModalArchivo()">
+        <span class="material-icons">close</span>
+      </button>
+    </div>
+
+    <div class="modal-body">
+      <p class="upload-subtitle">Subiendo archivo para: <strong>EXP-2026-0001</strong></p>
+
+      <div class="upload-dropzone">
+        <div class="dropzone-content">
+          <span class="material-icons upload-icon-large">file_upload</span>
+          <h4>Arrastra y suelta tu archivo aquí</h4>
+          <p>o haz clic para explorar en tu equipo</p>
+          <span class="file-limits">Soporta PDF, JPG, PNG (Máx. 10MB)</span>
+        </div>
+        <input type="file" class="file-input-hidden" accept=".pdf,.jpg,.png">
+      </div>
+    </div>
+
+    <div class="modal-footer">
+      <button class="btn-secondary" (click)="cerrarModalArchivo()">Cancelar</button>
+      <button class="btn-primary" type="button">
+        <span class="material-icons">check_circle</span> Subir Archivo
+      </button>
+    </div>
+
+  </div>
+</div>

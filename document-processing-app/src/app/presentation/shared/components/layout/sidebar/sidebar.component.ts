@@ -31,8 +31,9 @@ export class SidebarComponent implements OnInit {
     if(this.rolActual === 'Admin'){
       this.menuItems = [
         {titulo: 'Panel Admin', ruta: '/admin', icono: 'admin_panel_settings'},
-        {titulo: 'Oficinas', ruta: '/admin/oficinas', icono: 'group'},
-        {titulo: 'Personal', ruta: '/admin/personal', icono: 'groups'}
+        {titulo: 'Oficinas', ruta: '/admin/oficinas', icono: 'room_preferences'},
+        {titulo: 'Personal', ruta: '/admin/personal', icono: 'groups'},
+        {titulo: 'Tipos Documento', ruta: '/admin/tipo-documento', icono: 'content_paste_go'}
       ];
     } else if(this.rolActual === 'Personal'){
       this.menuItems = [ 

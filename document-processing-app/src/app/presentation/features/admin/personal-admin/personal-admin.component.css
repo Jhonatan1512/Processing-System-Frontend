@@ -183,6 +183,28 @@
   border: 1px solid rgba(4, 21, 48, 0.1);
 }
 
+.status-activo {
+  background-color: #f0fdf4;
+  color: #063618;
+  border: 1px solid #bbf7d0;
+  border-radius: 0.5rem;
+  padding: 0px 10px;
+}
+.status-activo .status-dot {
+  background-color: #16a34a;
+}
+
+.status-inactivo {
+  background-color: #fef2f2;
+  color: #670d0d;
+  border-radius: 0.5rem;
+  border: 1px solid #fecaca;
+  padding: 0px 10px;
+}
+.status-inactivo .status-dot {
+  background-color: #dc2626;
+}
+
 .text-center {
   text-align: center;
 }

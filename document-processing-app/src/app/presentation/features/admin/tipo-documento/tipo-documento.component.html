@@ -1,0 +1,57 @@
+<div class="table-container">
+  
+  <div class="table-header-actions">
+    <div class="header-text">
+      <h2>Tipos de Documento</h2>
+    </div>
+    
+    <button class="add-btn" type="button" (click)="abrirModalAgregar()">      
+      <span class="material-icons">add_circle_outline</span>      
+      Agregar Tipo
+    </button>
+  </div>
+
+  <table class="custom-table">
+    <thead>
+      <tr>
+        <th style="width: 30%;">Nombre del Documento</th>
+        <th style="width: 55%;">Descripción</th>
+        <th class="text-center" style="width: 15%;">Acciones</th>
+      </tr>
+    </thead>
+    <tbody>
+      
+      <tr *ngFor="let index of listaRegistros">
+        <td>
+          <div class="doc-name-wrapper">
+            <span class="material-icons doc-icon">description</span>
+            <span class="doc-title">{{index.nombre}}</span>
+          </div>
+        </td>
+        <td>
+          <p class="doc-description">
+            {{index.descripcion}}
+          </p>
+        </td>
+        <td class="text-center">
+          <div class="actions-group">
+            <button class="action-btn edit" title="Editar Documento" (click)="abrirModalEditar(index)">
+              <span class="material-icons">edit</span>
+            </button>
+            <button class="action-btn delete" title="Eliminar Documento">
+              <span class="material-icons">delete_outline</span>
+            </button>
+          </div>
+        </td>
+      </tr>
+
+    </tbody>
+  </table>
+</div>
+
+<app-register-form
+    *ngIf="isModalOpen"
+    [editRegister]="registroSeleccionado"
+    (closeModal)="isModalOpen = false"
+    (createRegister)="onCreateRegister()">
+</app-register-form>

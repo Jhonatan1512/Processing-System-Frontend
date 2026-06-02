@@ -1,0 +1,153 @@
+.table-container {
+  border-radius: 12px;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -1px rgba(0, 0, 0, 0.03);
+  border: 1px solid #e2e8f039;
+  overflow: hidden;
+  margin-top: 0.5rem;
+  padding: 15px;
+}
+
+.table-header-actions {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1.5rem;
+}
+
+.header-text h2 {
+  margin: 0;
+  color: #0f172a;
+  font-size: 1.25rem;
+  font-weight: 600;
+}
+
+.subtitle {
+  margin: 0.2rem 0 0 0;
+  color: #64748b;
+  font-size: 0.85rem;
+}
+
+.add-btn {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  background-color: #041530;
+  color: #ffffff;
+  border: none;
+  padding: 0.6rem 1.2rem;
+  border-radius: 8px;
+  font-weight: 500;
+  font-size: 0.9rem;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+.add-btn:hover {
+  background-color: #041124;
+}
+
+.custom-table {
+  width: 100%;
+  border-collapse: collapse;
+  text-align: left;
+  font-size: 0.9rem;
+  border: 1.5px solid #e2e8f05e;
+}
+
+.custom-table thead {
+  background-color: #f8fafc;
+  border-bottom: 2px solid #e2e8f0;
+}
+
+.custom-table th {
+  padding: 1rem 1.5rem;
+  color: #475569;
+  font-weight: 600;
+  font-size: 0.8rem;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.custom-table td {
+  padding: 1rem 1.5rem;
+  border-bottom: 1px solid #bcc9d56f;
+  vertical-align: middle;
+}
+
+.custom-table tbody tr:hover {
+  background-color: #f8fafc;
+}
+
+.doc-name-wrapper {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.doc-icon {
+  color: #2563eb;
+  background-color: #2564eb17;
+  padding: 8px;
+  border-radius: 8px;
+  font-size: 1.2rem !important;
+}
+
+.doc-title {
+  font-weight: 600;
+  color: #0f172a;
+}
+
+.doc-description {
+  margin: 0;
+  color: #475569;
+  font-size: 0.88rem;
+  line-height: 1.4;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.text-center {
+  text-align: center;
+}
+
+.actions-group {
+  display: flex;
+  justify-content: center;
+  gap: 0.4rem;
+}
+
+.action-btn {
+  background: none;
+  border: none;
+  padding: 6px;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  color: #64748b;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.action-btn.edit{
+    color: #2563eb;
+}
+
+.action-btn.delete{
+    color: #dc2626 ;
+}
+
+.action-btn.edit:hover {
+  background-color: rgba(7, 34, 109, 0.088);
+  color: #2563eb; 
+}
+
+.action-btn.delete:hover {
+  background-color: #dc262618;
+  color: #dc2626; 
+}
+
+.action-btn .material-icons {
+  font-size: 1.2rem !important;
+}
