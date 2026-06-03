@@ -1,0 +1,63 @@
+<div class="modal-overlay" *ngIf="expedienteSeleccionadoMov">
+  <div class="modal-container modal-detail">
+    
+    <div class="modal-header">
+      <div class="modal-title-group">
+        <span class="material-icons title-icon">timeline</span>
+        <div>
+          <h3>Historial de Movimientos</h3>
+          <p class="modal-subtitle">Expediente: <strong>{{ expedienteSeleccionadoMov?.numeroExpediente }}</strong></p>
+        </div>
+      </div>
+      <button class="close-icon-btn" (click)="cerrar()">
+        <span class="material-icons">close</span>
+      </button>
+    </div>
+
+    <div class="modal-body scrollable-timeline">
+      
+      <div class="no-data" *ngIf="listaMovimientos.length === 0">
+        <span class="material-icons">info</span>
+        <p>No se encontraron movimientos registrados para este expediente.</p>
+      </div>
+
+      <div class="comments-timeline" *ngIf="listaMovimientos.length > 0">
+        
+        <div class="timeline-item" *ngFor="let mov of listaMovimientos">
+          
+          <div class="timeline-icon-wrapper" [ngClass]="BadgeColor(mov.estado)">
+            <span class="material-icons">{{ IconoEstado(mov.estado) }}</span>
+          </div>
+          
+          <div class="timeline-content">
+            <div class="timeline-content-header">
+              <span class="badge" [ngClass]="BadgeColor(mov.estado)">{{ mov.estado }}</span>
+              <span class="meta-date">
+                <span class="material-icons">calendar_today</span>
+                {{ mov.fechaCreacion | date:'dd/MM/yyyy — HH:mm' }} hrs.
+              </span>
+            </div>
+
+            <div class="comment-block" *ngIf="mov.comentarioDerivacion">
+              <span class="comment-label">Derivación:</span>
+              <p class="comment-text">"{{ mov.comentarioDerivacion }}"</p>
+            </div>
+
+            <div class="comment-block" *ngIf="mov.comentarioFinal">
+              <span class="comment-label">Cierre:</span>
+              <p class="comment-text final-text">"{{ mov.comentarioFinal }}"</p>
+            </div>
+          </div>
+
+        </div>
+
+      </div>
+
+    </div>
+
+    <div class="modal-footer">
+      <button class="btn-primary-block" type="button" (click)="cerrar()">Entendido</button>
+    </div>
+
+  </div>
+</div>

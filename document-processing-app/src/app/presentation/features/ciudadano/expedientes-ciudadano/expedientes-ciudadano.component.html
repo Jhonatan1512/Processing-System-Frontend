@@ -9,93 +9,98 @@
       <div class="search-bar">
         <span class="material-icons search-icon">search</span>
         <input type="text" placeholder="Buscar expediente...">
-      </div>
+      </div> 
       
-      <button class="btn-primary new-btn" type="button">
+      <button class="btn-primary new-btn" type="button" (click)="abrirModalExpediente()">
         <span class="material-icons">add</span>
         Nuevo Expediente
       </button>
-    </div>
+    </div> 
   </div>
 
-  <div class="cards-grid">
+  <div class="cards-grid" >
     
-    <div class="modern-card">
+    <div class="modern-card" *ngFor="let index of listaExpedientes">
       <div class="card-top">
         <div class="exp-id">
           <span class="material-icons icon-folder">folder_open</span>
-          <strong>EXP-2026-0001</strong>
+          <strong>{{index.numeroExpediente}}</strong>
         </div>
-        <span class="badge badge-warning">En Proceso</span>
+        <div class="badge" [ngClass]="BadgeColor(index.estado)">
+          <span class="material-icons badge-icon">{{ IconoEstado(index.estado) }}</span>
+          {{ index.estado }}
+        </div>
       </div>
 
       <div class="card-content">
         <div class="meta-data">
           <span class="doc-label">Tipo:</span>
-          <span class="doc-value">Oficios</span>
+          <span class="doc-value">{{index.tipoDocumentoNombre}}</span>
         </div>
-        <h3 class="asunto-text">Solicitud de renovación de licencia de funcionamiento</h3>
+        <h3 class="asunto-text"><span class="doc-label">Asunto:</span> {{index.asunto}}</h3>
+        <h3 class="asunto-text"><span class="doc-label">Fecha Registro:</span> {{index.fechaCreacion | date: 'dd-MM-yyyy'}}</h3>
       </div>
 
       <div class="files-section">
         <div class="files-header">
-          <span class="files-title">Archivos Adjuntos (2)</span>
-          <button class="btn-add-mini" (click)="abrirModalArchivo()">
+          <span class="files-title">Archivos Adjuntos ({{index.archivos.length}})</span>
+          <button class="btn-add-mini" (click)="abrirModalArchivo(index)">
             <span class="material-icons">add</span> Adjuntar
           </button>
         </div>
         
         <ul class="files-list">
-          <li class="file-item">
+          <li class="file-item" *ngFor="let archivo of index.archivos">
             <div class="file-info">
               <span class="material-icons file-icon">picture_as_pdf</span>
-              <span class="file-name">Solicitud_Firmada_v1.pdf</span>
+              <span class="file-name">{{archivo.nombreArchivo}}{{archivo.extension}}</span>
             </div>
             <div class="file-actions">
-              <button class="file-btn view" title="Ver archivo"><span class="material-icons">visibility</span></button>
-              <button class="file-btn delete" title="Eliminar archivo"><span class="material-icons">close</span></button>
+              <button class="file-btn view" title="Ver archivo" (click)="abrirVisor(archivo)">
+                <span class="material-icons">visibility</span>
+              </button>
+              <button class="file-btn delete" title="Eliminar archivo" (click)="eliminarArchivo(archivo.id)">
+                <span class="material-icons">close</span>
+              </button>
             </div>
           </li>
         </ul>
-      </div>
 
-    </div>
-    </div>
-</div>
-
-<div class="modal-overlay" *ngIf="isModalArchivoOpen">
-  <div class="modal-container modal-upload">
-    
-    <div class="modal-header">
-      <div class="modal-title-group">
-        <span class="material-icons title-icon" style="color: #3b82f6;">cloud_upload</span>
-        <h3>Adjuntar Documento</h3>
-      </div>
-      <button class="close-icon-btn" (click)="cerrarModalArchivo()">
-        <span class="material-icons">close</span>
-      </button>
-    </div>
-
-    <div class="modal-body">
-      <p class="upload-subtitle">Subiendo archivo para: <strong>EXP-2026-0001</strong></p>
-
-      <div class="upload-dropzone">
-        <div class="dropzone-content">
-          <span class="material-icons upload-icon-large">file_upload</span>
-          <h4>Arrastra y suelta tu archivo aquí</h4>
-          <p>o haz clic para explorar en tu equipo</p>
-          <span class="file-limits">Soporta PDF, JPG, PNG (Máx. 10MB)</span>
+        <div class="histial">
+          <button class="histoia-btn" (click)="abrirModalMovimientos(index)" >
+            Historial de Movimientos ({{index.historial.length}} movimiento) 
+            <span class="material-icons">arrow_forward</span>
+          </button>
         </div>
-        <input type="file" class="file-input-hidden" accept=".pdf,.jpg,.png">
+
       </div>
-    </div>
 
-    <div class="modal-footer">
-      <button class="btn-secondary" (click)="cerrarModalArchivo()">Cancelar</button>
-      <button class="btn-primary" type="button">
-        <span class="material-icons">check_circle</span> Subir Archivo
-      </button>
     </div>
-
   </div>
 </div>
+
+<app-register-form
+  *ngIf="isModalArchivoOpen"
+  [expedienteSeleccinado]="isExpedienteSeleccionado" 
+  (closeModal)="isModalArchivoOpen = false"
+  (onCreateExpediente)="crearArchivo()">
+</app-register-form>
+
+<app-historial-movimientos
+  *ngIf="isModalMovimientosOpen"
+  [expedienteSeleccionadoMov]="isExpedienteSeleccionado"
+  (closeModalMovimientos)="isModalMovimientosOpen = false">
+</app-historial-movimientos>
+
+<app-register-form-expediente
+  *ngIf="isModalExpedienteOpen"
+  (closeModalExpediente)="isModalExpedienteOpen = false"
+  (onCreateExpediente)="crearExpediente()">
+</app-register-form-expediente>
+
+<app-visor-archivo
+  *ngIf="isVisorOpen"
+  [archivoSeleccionado]="isArchivo"
+  (closeVisor)="isVisorOpen = false">
+</app-visor-archivo>
+

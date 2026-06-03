@@ -1,0 +1,137 @@
+.viewer-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(15, 23, 42, 0.75);
+  backdrop-filter: blur(6px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 2000;
+  padding: 2rem;
+  box-sizing: border-box;
+}
+
+.viewer-container {
+  background-color: #ffffff;
+  width: 100%;
+  max-width: 1000px;
+  height: 85vh;
+  border-radius: 16px;
+  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.4);
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  animation: viewerScaleUp 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+@keyframes viewerScaleUp {
+  from {
+    opacity: 0;
+    transform: scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+.viewer-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem 1.5rem;
+  border-bottom: 1px solid #e2e8f0;
+  background-color: #f8fafc;
+}
+.viewer-title {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  color: #0f172a;
+  font-weight: 700;
+  font-size: 1rem;
+}
+.viewer-title .material-icons {
+  color: #041530;
+}
+
+.viewer-close-btn {
+  background: none;
+  border: none;
+  color: #64748b;
+  cursor: pointer;
+  padding: 6px;
+  border-radius: 50%;
+  display: flex;
+  transition: all 0.2s;
+}
+.viewer-close-btn:hover {
+  background-color: #e2e8f0;
+  color: #0f172a;
+}
+
+.viewer-body {
+  flex-grow: 1;
+  background-color: #475569;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+
+.viewer-body iframe {
+  width: 100%;
+  height: 100%;
+  border: none;
+  background-color: #ffffff;
+}
+
+.viewer-body img {
+  max-width: 100%;
+  max-height: 100%;
+  object-fit: contain;
+  background-color: transparent;
+}
+
+.viewer-unsupported {
+  text-align: center;
+  color: #ffffff;
+  padding: 2rem;
+}
+.viewer-unsupported .material-icons {
+  font-size: 3.5rem !important;
+  opacity: 0.6;
+  margin-bottom: 1rem;
+}
+.viewer-unsupported p {
+  margin: 0 0 1.5rem 0;
+  font-size: 1.1rem;
+}
+.btn-download {
+  display: inline-flex;
+  align-items: center;
+  padding: 0.65rem 1.5rem;
+  background-color: #041530;
+  color: white;
+  text-decoration: none;
+  border-radius: 8px;
+  font-weight: 600;
+  font-size: 0.9rem;
+  transition: background 0.2s;
+}
+.btn-download:hover {
+  background-color: #0c2854;
+}
+
+@media (max-width: 600px) {
+  .viewer-overlay {
+    padding: 0.5rem;
+  }
+  .viewer-container {
+    height: 95vh;
+    border-radius: 12px;
+  }
+}

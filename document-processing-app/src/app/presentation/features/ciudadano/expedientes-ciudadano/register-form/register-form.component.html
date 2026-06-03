@@ -1,0 +1,47 @@
+<div class="modal-overlay" *ngIf="expedienteSeleccinado">
+  <div class="modal-container modal-upload">
+    
+    <div class="modal-header">
+      <div class="modal-title-group">
+        <span class="material-icons title-icon" style="color: #3b82f6;">cloud_upload</span>
+        <h3>Adjuntar Documento</h3>
+      </div>
+      <button class="close-icon-btn" (click)="cerrarModalArchivo()">
+        <span class="material-icons">close</span>
+      </button>
+    </div>
+
+    <div class="modal-body">
+      <p class="upload-subtitle">Subiendo archivo para: <strong>{{expedienteSeleccinado?.numeroExpediente}}</strong></p>
+
+      <div class="upload-dropzone">
+        
+        <div class="dropzone-content" *ngIf="!formRegister.get('archivo')?.value">
+          <span class="material-icons upload-icon-large">file_upload</span>
+          <h4>Arrastra y suelta tu archivo aquí</h4>
+          <p>o haz clic para explorar en tu equipo</p>
+          <span class="file-limits">Soporta solo PDF (Máx. 10MB)</span>
+        </div>
+
+        <div class="dropzone-content-selected" *ngIf="formRegister.get('archivo')?.value">
+          <span class="material-icons file-icon-large">task_item</span>
+          <h4 class="selected-file-name">{{ formRegister.get('archivo')?.value?.name }}</h4>
+          <p class="selected-file-size">
+            {{ (formRegister.get('archivo')?.value?.size / 1024 / 1024) | number:'1.1-2' }} MB
+          </p>
+          <span class="file-change-badge">Haga clic aquí para cambiar el archivo</span>
+        </div>
+
+        <input type="file" class="file-input-hidden" accept=".pdf" (change)="onFileSelect($event)">
+      </div>
+    </div>
+
+    <div class="modal-footer">
+      <button class="btn-secondary" (click)="cerrarModalArchivo()">Cancelar</button>
+      <button class="btn-primary" type="button" [disabled]="formRegister.invalid" (click)="subirArchivo()">
+        <span class="material-icons">check_circle</span> Subir Archivo
+      </button>
+    </div>
+
+  </div>
+</div>

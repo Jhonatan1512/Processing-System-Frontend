@@ -1,0 +1,30 @@
+<div class="viewer-overlay" (click)="cerrarVisor()">
+  <div class="viewer-container" (click)="$event.stopPropagation()">
+    
+    <div class="viewer-header">
+      <div class="viewer-title">
+        <span class="material-icons">visibility</span>
+        <span>{{ archivoSeleccionado?.nombreArchivo || 'Previsualización de Archivo' }}</span>
+      </div>
+      <button class="viewer-close-btn" (click)="cerrarVisor()">
+        <span class="material-icons">close</span>
+      </button>
+    </div>
+
+    <div class="viewer-body">
+      
+      <iframe *ngIf="esPdf && urlSegura" [src]="urlSegura" frameborder="0"></iframe>
+
+      <img *ngIf="esImagen && urlSegura" [src]="urlSegura" alt="Previsualización">
+
+      <div class="viewer-unsupported" *ngIf="!esPdf && !esImagen">
+        <span class="material-icons">no_photography</span>
+        <p>Este tipo de archivo no soporta previsualización en línea.</p>
+        <a *ngIf="archivoSeleccionado?.urlArchivo" [href]="archivoSeleccionado.urlArchivo" download class="btn-download">
+          <span class="material-icons">download</span> Descargar Archivo
+        </a>
+      </div>
+
+    </div>
+  </div>
+</div>

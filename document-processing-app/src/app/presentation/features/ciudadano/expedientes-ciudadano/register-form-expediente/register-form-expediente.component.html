@@ -1,0 +1,64 @@
+<div class="modal-overlay">
+  <div class="modal-container modal-create">
+    
+    <div class="modal-header">
+      <div class="modal-title-group">
+        <span class="material-icons title-icon">create_new_folder</span>
+        <div>
+          <h3>Registrar Nuevo Expediente</h3>
+          <p class="modal-subtitle">Complete los campos para iniciar el trámite documentario</p>
+        </div>
+      </div>
+      <button class="close-icon-btn" type="button" (click)="cerrarModal()">
+        <span class="material-icons">close</span>
+      </button>
+    </div>
+
+    <div class="modal-body">
+      <form class="modern-form" [formGroup]="registerForm">
+        
+        <div class="form-group">
+          <label for="tipoDocumento" class="form-label">
+            Tipo de Documento <span class="required">*</span>
+          </label>
+          <div class="input-icon-wrapper">
+            <span class="material-icons input-icon">description</span>
+            <select id="tipoDocumento" 
+                class="form-control select-control" 
+                formControlName="tipoDocumentoId">
+              <option value="" disabled selected>Seleccione el tipo de documento...</option>
+              <option *ngFor="let index of listaTipoDoc" [value]="index.id">{{index.nombre}}</option>              
+            </select>
+          </div>
+          <span class="form-hint">Seleccione la categoría que corresponda a su trámite.</span>
+        </div>
+
+        <div class="form-group">
+          <label for="asunto" class="form-label">
+            Asunto del Expediente <span class="required">*</span>
+          </label>
+          <div class="input-icon-wrapper textarea-alignment">
+            <span class="material-icons input-icon textarea-icon">subtitles</span>
+            <textarea 
+              id="asunto" 
+              class="form-control textarea-control" 
+              rows="4" 
+              formControlName="asunto"
+              placeholder="Escriba un resumen detallado del motivo o solicitud del expediente..."></textarea>
+          </div>
+          <span class="form-hint">Sea claro y conciso para facilitar el seguimiento del trámite.</span>
+        </div>
+
+      </form>
+    </div>
+ 
+    <div class="modal-footer">
+      <button class="btn-secondary" type="button" (click)="cerrarModal()">Cancelar</button>
+      <button class="btn-primary" type="button" (click)="crearExpediente()">
+        <span class="material-icons">save</span>
+        Registrar Expediente
+      </button>
+    </div>
+
+  </div>
+</div>
