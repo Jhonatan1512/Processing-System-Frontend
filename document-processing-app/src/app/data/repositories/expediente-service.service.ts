@@ -8,9 +8,10 @@ import { ExpedienteModel } from '../models/expediente-model';
   providedIn: 'root'
 })
 export class ExpedienteServiceService implements ExpedienteRepository {
+  
   private http = inject(HttpClient);
   private apiUrl = "https://localhost:7088/api/Expediente";
-
+ 
   obtenerExpedientes(): Observable<any> {
     return this.http.get(`${this.apiUrl}/todos-los-expedientes`);
   }
@@ -18,5 +19,9 @@ export class ExpedienteServiceService implements ExpedienteRepository {
   crearExpediente(data: ExpedienteModel): Observable<any> {
     return this.http.post(`${this.apiUrl}/registrar`, data);
   } 
+
+  obtenerExpedientesPorPerfil(): Observable<any> {
+    return this.http.get(`${this.apiUrl}/lista-epedientes-perfil`);
+  }
 
 }

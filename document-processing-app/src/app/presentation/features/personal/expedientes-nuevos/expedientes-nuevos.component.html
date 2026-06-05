@@ -1,1 +1,79 @@
-<p>expedientes-nuevos works!</p>
+<div class="dashboard-container">
+  <div class="dashboard-header">
+    <h2><span class="material-icons">folder_shared</span> Bandeja de Expedientes</h2>
+    <p>Gestión y control de documentos asignados a esta oficina.</p>
+  </div>
+
+  <div class="table-responsive">
+    <table class="custom-table">
+      <thead>
+        <tr>
+          <th>N° Expediente</th>
+          <th>Asunto</th>
+          <th>Usuario Creador</th>
+          <th>Fecha Creación</th>
+          <th>Estado</th>
+          <th>Archivos Adjuntos</th>
+          <th class="text-center">Acciones</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let index of listaExpdientes">
+          <td class="font-bold text-blue">{{index.numeroExpediente}}</td>
+          <td class="text-asunto" title="Solicitud de presupuesto para mantenimiento de servidores">
+            {{index.asunto}}
+          </td>
+          <td>
+            <div class="user-info">
+              <span class="user-name">{{index.nombreUsuarioCreacion}}</span>
+              <span class="user-dni">DNI: {{index.dniUsuarioCreacion}}</span>
+            </div>
+          </td>
+          <td>{{index.fechaCreacion | date: 'dd-MMM-yyyy'}}</td>
+          <td>
+            <div class="badge" [ngClass]="BadgeColor(index.estado)">
+              {{ index.estado }}
+            </div>
+          </td>
+          <td>
+            <div class="files-container" >
+              <button class="file-chip" title="Clic para descargar" *ngFor="let archivo of index.archivos">
+                <span class="material-icons icon-pdf">picture_as_pdf</span>
+                <span class="file-name">{{archivo.nombreArchivo}}{{archivo.extension}}</span>
+                <span class="material-icons icon-download">download</span>
+              </button>
+            </div>
+          </td>
+          <td class="text-center">
+            <div class="action-buttons">
+              <button 
+                class="btn-action" 
+                [ngClass]="obtenerClaseBotonRecibir(index)"
+                [disabled]="estaBotonRecibirDeshabilitado(index)"
+                (click)="marcarComoRecibido(index.id)"
+                title="Marcar como recibido en mi oficina">
+                
+                <span class="material-icons">
+                  {{ obtenerIconoBotonRecibir(index) }}
+                </span>
+                {{ obtenerTextoBotonRecibir(index) }}
+
+              </button>
+              
+              <button 
+                class="btn-action btn-derivar" 
+                title="Derivar a otra oficina"
+                [disabled]="estaBotonDerivarDeshabilitado(index)">
+                
+                <span class="material-icons">send</span>
+                Derivar
+
+              </button>
+            </div>
+          </td>
+        </tr>
+ 
+      </tbody>
+    </table>
+  </div>
+</div>

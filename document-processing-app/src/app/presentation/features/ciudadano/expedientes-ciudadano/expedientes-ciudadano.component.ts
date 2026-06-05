@@ -39,6 +39,8 @@ export class ExpedientesCiudadanoComponent implements OnInit {
     this.expedienteService.obtenerExpedientes().subscribe({
       next: (data) => {
         this.listaExpedientes = data;
+      }, error: (err) => {
+        console.log(err)
       }
     });
   }
@@ -69,7 +71,7 @@ export class ExpedientesCiudadanoComponent implements OnInit {
     this.isArchivo = archivo;
     this.isVisorOpen = true; 
   }
-
+ 
   crearArchivo(){
     this.isArchivoSeleccionado = null;
     this.isExpedienteSeleccionado = null;

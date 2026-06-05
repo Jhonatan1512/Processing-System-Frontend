@@ -58,7 +58,7 @@ export class RegisterFormComponent {
       this.mensajeError = 'Todos los campos son obligatorios';
       return;
     }
-
+ 
     this.mensajeError = '';
 
     const {nombre, apellidos, dni, email, password} = this.registerForm.value;

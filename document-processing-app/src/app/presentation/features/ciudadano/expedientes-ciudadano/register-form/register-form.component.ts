@@ -84,7 +84,7 @@ export class RegisterFormComponent implements OnInit{
           console.log(err);
         }
       })
-    } else {
+    } else { 
       this.archivoService.subirArchivo(newArchive).subscribe({
         next: () => {
           this.toastService.success("Archivos subidos correctamente");

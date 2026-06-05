@@ -8,7 +8,7 @@ import { TokenService } from '../../domain/network/token.service';
   providedIn: 'root'
 })
 export class AuthServiceService implements AuthRepository{
- 
+   
   private http = inject(HttpClient);
   private tokenService = inject(TokenService);
   private apiUrl = "https://localhost:7088/api/Auth";
@@ -33,6 +33,14 @@ export class AuthServiceService implements AuthRepository{
 
     const payload = this.tokenService.decodeToke(token);
     return payload?.nombre || 'Usuario';
+  } 
+
+  obtenerIdOfincina(): string {
+    const token = this.tokenService.getToken();
+    if(!token) return '';
+
+    const payload = this.tokenService.decodeToke(token);
+    return payload?.oficinaId || "";
   }
 
   obtenerRolUsuario(): string {

@@ -5,4 +5,5 @@ export interface AuthRepository{
     cerrarSesion(): Observable<any>;
     obtenerNombreUsuario(): string;
     obtenerRolUsuario(): string;
+    obtenerIdOfincina(): string;
 }
