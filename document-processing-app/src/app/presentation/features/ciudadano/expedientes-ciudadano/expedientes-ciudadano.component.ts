@@ -29,21 +29,22 @@ export class ExpedientesCiudadanoComponent implements OnInit {
   listaExpedientes: any[] = [];
   isExpedienteSeleccionado: any = null;
   isArchivo: any = null;
+  isArchivoSeleccionado: any = null;
 
   ngOnInit(): void {
     this.obetenerExpediente();
   }
-
+ 
   obetenerExpediente(){
     this.expedienteService.obtenerExpedientes().subscribe({
       next: (data) => {
         this.listaExpedientes = data;
-        console.log(data);
       }
     });
   }
 
   abrirModalArchivo(expediente?: any) {
+    this.isArchivoSeleccionado = null;
     this.isExpedienteSeleccionado = expediente;
     this.isModalArchivoOpen = true;
   }
@@ -58,12 +59,19 @@ export class ExpedientesCiudadanoComponent implements OnInit {
     this.obetenerExpediente();
   }
 
+  abrirModalEditarArchivo(expediente: any, archivo: any) {
+  this.isExpedienteSeleccionado = expediente; 
+  this.isArchivoSeleccionado = archivo;      
+  this.isModalArchivoOpen = true;             
+}
+
   abrirVisor(archivo?: any){
     this.isArchivo = archivo;
     this.isVisorOpen = true; 
   }
 
   crearArchivo(){
+    this.isArchivoSeleccionado = null;
     this.isExpedienteSeleccionado = null;
     this.obetenerExpediente();
   }

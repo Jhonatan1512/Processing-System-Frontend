@@ -20,23 +20,36 @@ export class RegisterFormComponent implements OnInit{
   @Output() closeModal = new EventEmitter<any>();
   @Output() onCreateExpediente = new EventEmitter<any>();
 
-  @Input() expedienteSeleccinado: any = null;
+  @Input() expedienteSeleccinado: any = null; 
+  @Input() archivoSeleccionado: any = null; 
 
   formRegister: FormGroup = this.fb.group({
-    expedienteId: ['', [Validators.required]],
+    id: [null],
+    expedienteId: [''],
     archivo: [null, [Validators.required]]
   })
 
   ngOnInit(): void {
     this.obetenerExpedienteSelecciondo();
+    this.obtenerArchivoSeleccionado();
   }
 
   obetenerExpedienteSelecciondo(){
     if(this.expedienteSeleccinado){
       this.formRegister.patchValue({
         expedienteId: this.expedienteSeleccinado.id
-      })
+      });
+      this.formRegister.get('expedienteId')?.setValidators([Validators.required]);
     }
+  }
+
+  obtenerArchivoSeleccionado(){
+    if(this.archivoSeleccionado){
+      this.formRegister.patchValue({
+        id: this.archivoSeleccionado.id,
+        archivo: null
+      })
+    } 
   }
 
   onFileSelect(event: any) {
@@ -55,24 +68,40 @@ export class RegisterFormComponent implements OnInit{
       return;
     }
 
-    const { expedienteId, archivo } = this.formRegister.value;
-    const newArchive: ArchivoModel = {expedienteId, archivo};
+    const {id, expedienteId, archivo } = this.formRegister.value;
+    const newArchive: ArchivoModel = {id, expedienteId, archivo};     
     
-    this.archivoService.subirArchivo(newArchive).subscribe({
-      next: () => {
-        this.toastService.success("Archivos subidos correctamente");
-        this.onCreateExpediente.emit();
-        this.cerrarModalArchivo();
-      },
-      error: (err) => {
-        this.toastService.error("Error al subir archivo");
-        console.log(err.message);
-      }
-    });
+    if(this.archivoSeleccionado){
+      this.archivoService.modificarArchivo(id, newArchive).subscribe({
+        next: () => {
+          this.toastService.success("Archivo modificado correctamente");
+          this.onCreateExpediente.emit();
+          this.cerrarModalArchivo();
+        },
+        error: (err) => {
+          this.toastService.error("Error al modificar archivo");
+          this.cerrarModalArchivo();
+          console.log(err);
+        }
+      })
+    } else {
+      this.archivoService.subirArchivo(newArchive).subscribe({
+        next: () => {
+          this.toastService.success("Archivos subidos correctamente");
+          this.onCreateExpediente.emit();
+          this.cerrarModalArchivo();
+        },
+        error: (err) => {
+          this.toastService.error("Error al subir archivo");
+          console.log(err.message);
+        }
+      });
+    }
   }
 
   cerrarModalArchivo(){
     this.closeModal.emit();
+    this.formRegister.reset();
   }
 
 }

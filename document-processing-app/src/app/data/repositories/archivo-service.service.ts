@@ -8,7 +8,7 @@ import { ArchivoModel } from '../models/archivo-model';
   providedIn: 'root'
 })
 export class ArchivoServiceService implements ArchivRepository{
-      
+        
   private http = inject(HttpClient);
   private apiUrl = "https://localhost:7088/api/DocumentoArchivo";
  
@@ -20,6 +20,14 @@ export class ArchivoServiceService implements ArchivRepository{
 
     return this.http.post(`${this.apiUrl}`, formData);
   } 
+
+  modificarArchivo(id: string, data: ArchivoModel): Observable<any> {
+    const newData = new FormData();
+
+    newData.append('id', id);
+    newData.append('archivo', data.archivo);
+    return this.http.put(`${this.apiUrl}/actualizar-archivo`, newData);
+  }
 
   eliminarArchivo(id: string): Observable<any> {
     return this.http.delete(`${this.apiUrl}/${id}`);

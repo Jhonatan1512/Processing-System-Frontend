@@ -342,6 +342,11 @@
   background-color: #fef2f2;
 }
 
+.file-btn.edit:hover{
+  color: #1e40af;
+  background-color: #3b83f624;
+}
+
 .histial {
   margin-top: 1.2rem;
   display: flex;

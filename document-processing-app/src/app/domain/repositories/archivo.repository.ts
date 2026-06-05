@@ -6,4 +6,5 @@ export interface ArchivRepository{
     eliminarArchivo(id: string): Observable<any>;
     verArchivo(id: string): Observable<any>;
     obtenerUrlVisro(id: string): string;
+    modificarArchivo(id: string, data: ArchivoModel): Observable<any>;
 }

@@ -55,7 +55,10 @@
               <span class="material-icons file-icon">picture_as_pdf</span>
               <span class="file-name">{{archivo.nombreArchivo}}{{archivo.extension}}</span>
             </div>
-            <div class="file-actions">
+            <div class="file-actions"> 
+              <button class="file-btn edit" title="Ver archivo" (click)="abrirModalEditarArchivo(index,archivo)">
+                <span class="material-icons">edit</span>
+              </button>
               <button class="file-btn view" title="Ver archivo" (click)="abrirVisor(archivo)">
                 <span class="material-icons">visibility</span>
               </button>
@@ -63,13 +66,13 @@
                 <span class="material-icons">close</span>
               </button>
             </div>
-          </li>
+          </li> 
         </ul>
 
         <div class="histial">
           <button class="histoia-btn" (click)="abrirModalMovimientos(index)" >
             Historial de Movimientos ({{index.historial.length}} movimiento) 
-            <span class="material-icons">arrow_forward</span>
+            <span class="material-icons">arrow_forward</span> 
           </button>
         </div>
 
@@ -82,6 +85,7 @@
 <app-register-form
   *ngIf="isModalArchivoOpen"
   [expedienteSeleccinado]="isExpedienteSeleccionado" 
+  [archivoSeleccionado]="isArchivoSeleccionado" 
   (closeModal)="isModalArchivoOpen = false"
   (onCreateExpediente)="crearArchivo()">
 </app-register-form>
@@ -91,9 +95,9 @@
   [expedienteSeleccionadoMov]="isExpedienteSeleccionado"
   (closeModalMovimientos)="isModalMovimientosOpen = false">
 </app-historial-movimientos>
-
+ 
 <app-register-form-expediente
-  *ngIf="isModalExpedienteOpen"
+  *ngIf="isModalExpedienteOpen"  
   (closeModalExpediente)="isModalExpedienteOpen = false"
   (onCreateExpediente)="crearExpediente()">
 </app-register-form-expediente>

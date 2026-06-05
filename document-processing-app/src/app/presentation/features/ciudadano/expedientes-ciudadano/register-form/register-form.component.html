@@ -39,9 +39,9 @@
     <div class="modal-footer">
       <button class="btn-secondary" (click)="cerrarModalArchivo()">Cancelar</button>
       <button class="btn-primary" type="button" [disabled]="formRegister.invalid" (click)="subirArchivo()">
-        <span class="material-icons">check_circle</span> Subir Archivo
+        <span class="material-icons">check_circle</span> {{archivoSeleccionado ? 'Modificar Archivo' : 'Subir Archivo'}}
       </button>
-    </div>
+    </div> 
 
   </div>
 </div>
