@@ -40,12 +40,12 @@
 
             <div class="comment-block" *ngIf="mov.comentarioDerivacion">
               <span class="comment-label">Derivación:</span>
-              <p class="comment-text">"{{ mov.comentarioDerivacion }}"</p>
-            </div>
+              <p class="comment-text">"{{ mov.comentarioDerivacion }} ({{mov.fechaCreacion | date: 'dd-MMM-yyyy - HH:mm'}})"</p>
+            </div> 
 
             <div class="comment-block" *ngIf="mov.comentarioFinal">
               <span class="comment-label">Cierre:</span>
-              <p class="comment-text final-text">"{{ mov.comentarioFinal }}"</p>
+              <p class="comment-text final-text">"{{ mov.comentarioFinal }} ({{mov.fechaRecepcion | date: 'dd-MMM-yyyy - HH:mm' }})"</p>
             </div>
           </div>
 

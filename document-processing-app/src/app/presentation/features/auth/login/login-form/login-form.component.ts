@@ -29,7 +29,7 @@ export class LoginFormComponent {
     usuario: ['', [Validators.required]],
     password: ['', [Validators.required, Validators.minLength(4)]]
   });
-
+ 
   login(){
     if(this.loginForm.valid){
       this.cargando = true;

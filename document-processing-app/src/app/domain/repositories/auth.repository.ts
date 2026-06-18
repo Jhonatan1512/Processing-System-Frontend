@@ -6,4 +6,5 @@ export interface AuthRepository{
     obtenerNombreUsuario(): string;
     obtenerRolUsuario(): string;
     obtenerIdOfincina(): string;
+    obtenerNombreOficina(): string;
 }

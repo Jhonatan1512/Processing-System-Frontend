@@ -1,1 +1,42 @@
-<p>recibir-expediente works!</p>
+<div class="modal-overlay">
+  <div class="modal-container">
+    
+    <div class="modal-header">
+      <div class="modal-title">
+        <span class="material-icons">task_alt</span>
+        <h3>Recibir Expediente ({{numeroExpdiente}})</h3>
+      </div>
+      <button type="button" class="btn-close" title="Cerrar modal" (click)="cerrarModal()">
+        <span class="material-icons">close</span>
+      </button>
+    </div>
+
+    <form [formGroup]="formRegister" (ngSubmit)="confirmarRecepcion()">
+      
+      <div class="modal-body">
+        <p class="text-muted">Estás a punto de aceptar este expediente en tu bandeja. Puedes agregar una observación o comentario final.</p>
+        
+        <div class="form-group">
+          <label for="comentarioFinal" class="form-label">Comentario de Recepción *</label>
+          <textarea 
+            formControlName="comentarioFinal"
+            id="comentarioFinal" 
+            name="comentarioFinal"
+            class="form-control" 
+            rows="4" 
+            placeholder="Ej: Documento recibido conforme con todos sus anexos..."></textarea>
+        </div>
+      </div>
+
+      <div class="modal-footer">
+        <button type="button" class="btn-secondary" (click)="cerrarModal()">Cancelar</button>
+        
+        <button type="submit" class="btn-primary">
+          <span class="material-icons">check_circle</span>
+          Confirmar Recepción
+        </button>
+      </div>
+
+    </form>
+    </div>
+</div>

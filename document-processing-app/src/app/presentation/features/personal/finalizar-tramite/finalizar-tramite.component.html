@@ -1,0 +1,49 @@
+<div class="modal-overlay">
+  <div class="modal-container">
+    
+    <div class="modal-header">
+      <div class="modal-title-content">
+        <span class="material-icons modal-icon-main">task_alt</span>
+        <h3>Finalizar Registro de Movimiento</h3>
+      </div>
+      <button type="button" class="btn-close-x" (click)="cerrarModal()">
+        <span class="material-icons">close</span>
+      </button>
+    </div>
+
+    <div class="modal-body">
+      <p class="modal-instruction-text">
+        Indique el veredicto final para este expediente y la observación correspondiente para proceder con el cierre del trámite.
+      </p>
+      
+      <form [formGroup]="formRegister">
+        <div class="form-group-final">
+            <label class="form-label-final">Estado de Finalización</label>
+            <select class="form-control-final" formControlName="estado">
+                <option value="" disabled selected>Seleccione el veredicto final...</option>
+                <option value="3"> Atendido (Finalizado)</option>
+                <option value="4"> Rechazado (Con Observaciones)</option>
+            </select>
+        </div>
+
+        <div class="form-group-final">
+            <label class="form-label-final">Comentario Final / Resolución</label>
+            <textarea 
+                formControlName="comentarioFinal"
+                class="form-control-final text-area-final" 
+                placeholder="Describa brevemente la conclusión del trámite o el motivo del rechazo definitivo...">
+            </textarea>
+        </div>
+        
+        <div class="modal-footer">
+          <button type="button" class="btn-final btn-final-secondary" (click)="cerrarModal()">Cancelar</button>
+          <button type="button" class="btn-final btn-final-primary" (click)="finalizarMovimientoExpediente()">
+            <span class="material-icons">circle_notifications</span>
+            Finalizar Trámite
+          </button>
+        </div>
+
+      </form>
+      
+  </div>
+</div>

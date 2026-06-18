@@ -47,10 +47,10 @@
           <td class="text-center">
             <div class="action-buttons">
               <button 
-                class="btn-action" 
+                class="btn-action"
                 [ngClass]="obtenerClaseBotonRecibir(index)"
                 [disabled]="estaBotonRecibirDeshabilitado(index)"
-                (click)="marcarComoRecibido(index.id)"
+                (click)="marcarComoRecibido(index)"
                 title="Marcar como recibido en mi oficina">
                 
                 <span class="material-icons">
@@ -63,11 +63,21 @@
               <button 
                 class="btn-action btn-derivar" 
                 title="Derivar a otra oficina"
-                [disabled]="estaBotonDerivarDeshabilitado(index)">
+                [disabled]="estaBotonDerivarDeshabilitado(index)"
+                (click)="abrirModalMovimiento(index)">
                 
                 <span class="material-icons">send</span>
                 Derivar
+              </button> 
 
+              <button  
+                *ngIf="!esMesaDePartes"
+                class="btn-action btn-finalizar" 
+                [disabled]="estaBotonDerivarDeshabilitado(index)" 
+                (click)="abrirModalFinalizar(index)"
+                title="Finalizar o rechazar trámite">
+                <span class="material-icons">task_alt</span>
+                Finalizar
               </button>
             </div>
           </td>
@@ -77,3 +87,25 @@
     </table>
   </div>
 </div>
+
+<app-recibir-expediente
+  *ngIf="isModalRecibirOpen"
+  [expedienteRecibir]="expedienteSeleccionado" 
+  (closeModal)="isModalRecibirOpen = false"
+  (recibirExpediente)="onRecibirExpediente()">
+</app-recibir-expediente>
+
+<app-derivar-expediente
+  *ngIf="isModalMovimientoOpen"
+  [expedienteMover]="expedienteSeleccionadoMovimiento"
+  [esMesaDePartes]="esMesaDePartes" 
+  (closeModal)="isModalMovimientoOpen = false"
+  (crearMovimiento)="onMovimientoCreate()">
+</app-derivar-expediente>
+
+<app-finalizar-tramite
+  *ngIf="isModalFinalizarOpen"
+  [expedienteFinalizar]="expdienteSeleccionadoFinalizar"
+  (closeModal)="isModalFinalizarOpen = false"
+  (finalizarMovimiento)="onMovimientoFinalizar()">
+</app-finalizar-tramite>

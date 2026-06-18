@@ -18,9 +18,11 @@ export class NavbarComponent implements OnInit {
   
   isModalOpen: boolean = false;
   nombreUsuario: string = '';
+  nombreOficina: string = '';
 
   ngOnInit(): void {
     this.obtenerNombreUsuario();
+    this.obtenerNombreOficina();
   }
 
   abrirModal(){
@@ -30,6 +32,11 @@ export class NavbarComponent implements OnInit {
   obtenerNombreUsuario(){
     const nombre = this.authService.obtenerNombreUsuario() || 'XX';
     this.nombreUsuario = nombre;
+  }
+
+  obtenerNombreOficina(){
+    const nombreOficina = this.authService.obtenerNombreOficina() || "Ciudadano";
+    this.nombreOficina = nombreOficina;
   }
 
   logout(){

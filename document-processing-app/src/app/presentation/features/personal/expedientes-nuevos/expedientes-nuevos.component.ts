@@ -4,10 +4,13 @@ import { FormsModule } from '@angular/forms';
 import { ExpedienteServiceService } from '../../../../data/repositories/expediente-service.service';
 import { ArchivoServiceService } from '../../../../data/repositories/archivo-service.service';
 import { AuthServiceService } from '../../../../data/repositories/auth-service.service';
+import { RecibirExpedienteComponent } from '../recibir-expediente/recibir-expediente.component';
+import { DerivarExpedienteComponent } from '../derivar-expediente/derivar-expediente.component';
+import { FinalizarTramiteComponent } from '../finalizar-tramite/finalizar-tramite.component';
 
 @Component({
-  selector: 'app-expedientes-nuevos',
-  imports: [CommonModule, FormsModule],
+  selector: 'app-expedientes-nuevos', 
+  imports: [CommonModule, FormsModule, RecibirExpedienteComponent, DerivarExpedienteComponent, FinalizarTramiteComponent],  
   templateUrl: './expedientes-nuevos.component.html',
   styleUrl: './expedientes-nuevos.component.css'
 })
@@ -21,9 +24,21 @@ export class ExpedientesNuevosComponent implements OnInit {
   isRecibido: boolean = false;
   EstadoRecivido: string = '';
   oficinaId: string = "";
+  isModalRecibirOpen: boolean = false;
+  expedienteSeleccionado: any = [];
+
+  inModalDerivarOpen: boolean = false;
+  expedienteSeleccionadoMovimiento: any = [];
+  isModalMovimientoOpen: boolean = false;
+
+  isModalFinalizarOpen: boolean = false;
+  expdienteSeleccionadoFinalizar: any = [];
+
+  esMesaDePartes: boolean = false;
 
   ngOnInit(): void {
     this.obtenerOficinaId();
+    this.verificarSiEsMesaDePartes();
     this.obtenerExpedientes();
   }
 
@@ -36,14 +51,49 @@ export class ExpedientesNuevosComponent implements OnInit {
     this.expedienteService.obtenerExpedientesPorPerfil().subscribe({
       next: (data) => {
         this.listaExpdientes = data;
-        console.log(data);
+        //console.log(data);
       }
     });
+  }
+
+  verificarSiEsMesaDePartes() {
+    const nombreOficina = this.authService.obtenerNombreOficina() || '';
+    
+    this.esMesaDePartes = nombreOficina.toLowerCase().includes('mesa de partes');
+  }
+
+  onMovimientoCreate(){
+    this.isModalMovimientoOpen = false;
+    this.obtenerExpedientes();
+  }
+
+  abrirModalMovimiento(expediente?: any){
+    this.isModalMovimientoOpen = true;
+    this.expedienteSeleccionado = null;
+    this.expdienteSeleccionadoFinalizar = null;
+    this.expedienteSeleccionadoMovimiento = expediente;
+  }
+
+  abrirModalFinalizar(expdiente?: any) {
+    this.isModalFinalizarOpen = true;
+    this.expdienteSeleccionadoFinalizar = expdiente;
+    this.expedienteSeleccionado = null;
+    this.expedienteSeleccionadoMovimiento = null;
+  }
+
+  onMovimientoFinalizar(){
+    this.isModalFinalizarOpen = false;
+    this.obtenerExpedientes();
   }
 
   obtenerOficinaId(){
     const id = this.authService.obtenerIdOfincina();
     this.oficinaId = id ? id.toString().toLowerCase() : ''; 
+  }
+
+  onRecibirExpediente(){
+    this.isModalRecibirOpen = false;
+    this.obtenerExpedientes();
   }
 
   BadgeColor(estado: string): string {
@@ -70,14 +120,6 @@ export class ExpedientesNuevosComponent implements OnInit {
       return new Date(b.fechaCreacion).getTime() - new Date(a.fechaCreacion).getTime();
     });
     return historialOrdenado[0];
-  }
-
-  private getEstadoActual(expediente: any): string {
-    const ultimoMovimiento = this.getUltimoMovimiento(expediente);
-    if (ultimoMovimiento && ultimoMovimiento.estado) {
-      return ultimoMovimiento.estado.trim().toLowerCase();
-    }
-    return '';
   }
 
   private requiereAtencionEnMiOficina(expediente: any): boolean {
@@ -119,14 +161,16 @@ export class ExpedientesNuevosComponent implements OnInit {
     const estado = ultimoMovimiento.estado ? ultimoMovimiento.estado.trim().toLowerCase() : '';
     const idDestino = ultimoMovimiento.oficinaDestinoId || ultimoMovimiento.OficinaDestinoId || '';
     const esParaMiOficina = idDestino.toString().toLowerCase() === this.oficinaId;
-
+ 
     const estaListoParaDerivar = esParaMiOficina && estado === 'recibido';
 
     return !estaListoParaDerivar;
   }
 
-  marcarComoRecibido(expedienteId: string) {
-    this.expedienteService
-  }  
- 
-}
+  marcarComoRecibido(expediente?: any) {
+    this.isModalRecibirOpen = true;
+    this.expedienteSeleccionado = expediente;
+    this.expedienteSeleccionadoMovimiento = null;
+    this.expdienteSeleccionadoFinalizar = null;
+  }   
+} 
